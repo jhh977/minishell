@@ -6,7 +6,7 @@
 /*   By: jhijazi <jhijazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 16:05:30 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/10/09 14:51:24 by jhijazi          ###   ########.fr       */
+/*   Updated: 2025/10/15 17:16:32 by jhijazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int main()
 	if (ft_strncmp(a, "exit", 4) == 0)
 		break ;
 	else
-		printf("user input: %s\n", a);
+		printf("number of tokens: %d\n", count_tokens(a));
 	}
 	return (0);
 }

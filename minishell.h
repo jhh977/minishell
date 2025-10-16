@@ -6,7 +6,7 @@
 /*   By: jhijazi <jhijazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 16:21:00 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/10/09 18:55:53 by jhijazi          ###   ########.fr       */
+/*   Updated: 2025/10/16 20:23:29 by jhijazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,22 @@
 # include <readline/history.h>
 # include "libft/libft.h"
 
-typedef struct s_cmd {
-    char    **args;
-	char    *infile;
-	char    *outfile;
-	int     append;
-	int     pipe_fd[2];
-} t_cmd;
+typedef struct s_redir
+{
+	char			*filename;
+	t_token_type	type;
+	struct s_redir	*next;
+}	t_redir;
 
-typedef struct s_parser {
-    t_cmd   *cmds;
-    int     cmd_count;
-} t_parser;
+typedef struct s_cmd
+{
+	char			**args;
+	t_redir			*redirections;
+	int				pipe_fd[2];
+	struct s_cmd	*next;
+	struct s_cmd	*prev;
+}	t_cmd;
+
+int	count_tokens(char *a);
 
 #endif

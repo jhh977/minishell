@@ -3,7 +3,7 @@ CFLAGS  = -Wall -Wextra -Werror -g
 
 NAME    = minishell
 HEAD    = minishell.h
-SRCS    = main.c
+SRCS    = main.c tokenization.c
 
 
 OBJS    = $(SRCS:.c=.o)
