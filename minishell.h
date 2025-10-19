@@ -6,7 +6,7 @@
 /*   By: jhijazi <jhijazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 16:21:00 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/10/16 20:23:29 by jhijazi          ###   ########.fr       */
+/*   Updated: 2025/10/19 08:46:34 by jhijazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "libft/libft.h"
+# include "token.h"
 
 typedef struct s_redir
 {
@@ -34,6 +35,7 @@ typedef struct s_cmd
 	struct s_cmd	*prev;
 }	t_cmd;
 
-int	count_tokens(char *a);
+t_token *tokenization(char *input);
+t_token	*new_token(char *value);
 
 #endif

@@ -6,60 +6,46 @@
 /*   By: jhijazi <jhijazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 14:13:27 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/10/15 17:10:54 by jhijazi          ###   ########.fr       */
+/*   Updated: 2025/10/19 10:41:13 by jhijazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	check_space(int *space, int qt, char c)
+void	add_token(t_token **head, t_token **tail, t_token *new)
 {
-	if (c == ' ' && qt == 0)
-	{
-		if (*space == 0)
-		{
-			*space = 1;
-			return (1);
-		}
-	}
+	if (!new)
+		return ;
+	if (*head == NULL)
+		*head = new;
 	else
-		*space = 0;
-	return (0);
-}
-static int	check_quotation(int *qt, char c)
-{
-	if (c == '\'' || c == '\"')
-	{
-		if (*qt == 0)
-		{
-			*qt = c;
-			return (1);
-		}
-		else if (*qt == c)
-		{
-			*qt = 0;
-			return (1);
-		}
-	}
-	return (0);
+		(*tail)->next = new;
+	*tail = new;
 }
 
-int	count_tokens(char *a)
+t_token *tokenization(char *input)
 {
-	int	i;
-	int	count;
-	int	qt;
-	int space;
-
-	i = 0;
-	count = 0;
-	space = 1;
-	qt = 0;
-	while(i < ft_strlen(a))
+	char *word;
+	t_token_helper t;
+	//init helper
+	while (input[end])
 	{
-		count += check_space(&space, qt, a[i]);
-		check_quotation(&qt, a[i]);
-		i++;
+		if (input[end] == ' ')
+		{
+			if (end > start)
+			{
+				t->word = ft_substr(input, start, end - start);
+				add_token(&head, &tail, new_token(t->word));
+			}
+			start = end + 1;
+		}
+		end++;
 	}
-	return (count);
+	if (end > start)
+	{
+		t->word = ft_substr(input, start, end - start);
+		add_token(&head, &tail, new_token(t->word));
+	}
+
+	return (head);
 }
