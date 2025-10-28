@@ -6,7 +6,7 @@
 /*   By: jhijazi <jhijazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 16:21:00 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/10/19 08:46:34 by jhijazi          ###   ########.fr       */
+/*   Updated: 2025/10/19 11:49:20 by jhijazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,5 @@ typedef struct s_cmd
 }	t_cmd;
 
 t_token *tokenization(char *input);
-t_token	*new_token(char *value);
 
 #endif

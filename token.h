@@ -29,4 +29,12 @@ typedef struct s_token_helper
 	int dquote;
 	int squote;
 } t_token_helper;
+
+void	token_helper_init(t_token_helper *t);
+t_token	*new_token(char *value);
+int		quotes_check(t_token_helper t);
+void	add_token_main(t_token_helper *t, char *input);
+int		quotes_check(t_token_helper t);
+void tokenize_quotes(t_token_helper *t, char *input);
+
 #endif
