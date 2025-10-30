@@ -6,7 +6,7 @@
 /*   By: jhijazi <jhijazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 12:42:21 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/10/28 13:41:11 by jhijazi          ###   ########.fr       */
+/*   Updated: 2025/10/29 17:58:36 by jhijazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	quotes_check(t_token_helper t)
 	return (0);
 }
 
-int	compatibility(t_token_helper t, char *input)
+static int	compatibility(t_token_helper t, char *input)
 {
 	if (t.squote && input[t.end] == '\'')
 		return (1);
@@ -47,23 +47,31 @@ int	compatibility(t_token_helper t, char *input)
 	return (0);
 }
 
-void tokenize_quotes(t_token_helper *t, char *input)
+static void	end_of_quote(t_token_helper *t, char *input)
 {
 	int	spaces;
 
 	spaces = 0;
+	while (input[t->end - spaces - 1] == ' ')
+		spaces++;
+	t->end -= spaces;
+	if (end_of_word(input[t->end + 1]) || !input[t->end + 1])
+		append_add_token(t, input);
+	else
+		append_word(t, input);
+	t->end += spaces;
+	spaces = 0;
+	t->start = t->end + 1;
+}
+
+void tokenize_quotes(t_token_helper *t, char *input)
+{
 	toggle_quotes(t, input);
 	if (!quotes_check(*t))
 	{
 		if(input[t->end] == '\'' || input[t->end] == '\"')
 		{
-			while (input[t->end - spaces - 1] == ' ')
-				spaces++;
-			t->end -= spaces;
-			add_token_main(t, input);
-			t->end += spaces;
-			spaces = 0;
-			t->start = t->end + 1;
+			end_of_quote(t,input);
 		}
 	}
 	else
