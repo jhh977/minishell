@@ -6,7 +6,7 @@
 /*   By: jhijazi <jhijazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 14:13:27 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/10/29 17:57:53 by jhijazi          ###   ########.fr       */
+/*   Updated: 2025/10/31 15:43:16 by jhijazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	append_add_token(t_token_helper *t, char *input)
 	append_word(t, input);
 	add_token(&t->head, &t->tail, new_token(t->word));
 	t->word = "";
+	t->type = WORD;
 }
 // add_token(&t->head, &t->tail, new_token(t->word));
 
@@ -60,7 +61,6 @@ t_token *tokenization(char *input)
 	{
 		if (quotes_check(t) || input[t.end] == '\'' || input[t.end] == '\"')
 		{
-			append_reset(&t, input);
 			tokenize_quotes(&t, input);
 		}
 		else if (end_of_word(input[t.end]) && !quotes_check(t))
@@ -69,6 +69,7 @@ t_token *tokenization(char *input)
 			{
 				append_add_token(&t, input);
 			}
+			check_add_special(&t, input);
 			t.start = t.end + 1;
 		}
 		t.end++;

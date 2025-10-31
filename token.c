@@ -6,7 +6,7 @@
 /*   By: jhijazi <jhijazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 08:46:13 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/10/28 18:14:13 by jhijazi          ###   ########.fr       */
+/*   Updated: 2025/10/31 15:03:36 by jhijazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,5 @@ void	token_helper_init(t_token_helper *t)
 	t->dquote = 0;
 	t->squote = 0;
 	t->word = "";
+	t->type = WORD;
 }

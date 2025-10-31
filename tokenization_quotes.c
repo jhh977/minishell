@@ -6,7 +6,7 @@
 /*   By: jhijazi <jhijazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 12:42:21 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/10/29 17:58:36 by jhijazi          ###   ########.fr       */
+/*   Updated: 2025/10/31 15:12:31 by jhijazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ static void	end_of_quote(t_token_helper *t, char *input)
 
 void tokenize_quotes(t_token_helper *t, char *input)
 {
+	append_reset(t, input);
 	toggle_quotes(t, input);
 	if (!quotes_check(*t))
 	{

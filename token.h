@@ -28,6 +28,7 @@ typedef struct s_token_helper
 	char *word;
 	int dquote;
 	int squote;
+	t_token_type type;
 } t_token_helper;
 
 void	token_helper_init(t_token_helper *t);
@@ -39,5 +40,6 @@ void	tokenize_quotes(t_token_helper *t, char *input);
 void	append_word(t_token_helper *t, char *input);
 void	append_reset(t_token_helper *t, char *input);
 int		end_of_word(char c);
+void	check_add_special(t_token_helper *t, char *input);
 
 #endif
