@@ -6,21 +6,23 @@
 /*   By: jhijazi <jhijazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 14:13:27 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/10/31 15:43:16 by jhijazi          ###   ########.fr       */
+/*   Updated: 2025/11/19 17:47:27 by jhijazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	add_token(t_token **head, t_token **tail, t_token *new)
+static void	add_token(t_token_helper *t, t_token *new)
 {
 	if (!new)
 		return ;
-	if (*head == NULL)
-		*head = new;
+	if (t->head == NULL)
+		t->head = new;
 	else
-		(*tail)->next = new;
-	*tail = new;
+		(t->tail)->next = new;
+	t->tail = new;
+	t->word = "";
+	t->type = WORD;
 }
 
 void	append_word(t_token_helper *t, char *input)
@@ -35,11 +37,8 @@ void	append_word(t_token_helper *t, char *input)
 void	append_add_token(t_token_helper *t, char *input)
 {
 	append_word(t, input);
-	add_token(&t->head, &t->tail, new_token(t->word));
-	t->word = "";
-	t->type = WORD;
+	add_token(t, new_token(t));
 }
-// add_token(&t->head, &t->tail, new_token(t->word));
 
 int	end_of_word(char c)
 {
@@ -72,11 +71,18 @@ t_token *tokenization(char *input)
 			check_add_special(&t, input);
 			t.start = t.end + 1;
 		}
+		else if (input[t.end] == '$')
+		{
+			var_handler(&t, input);
+			t.start = t.end + 1;
+		}
 		t.end++;
 	}
 	if (t.end > t.start && input[t.start])
 	{
 		append_add_token(&t, input);
 	}
+	else if (t.end == t.start && ft_strlen(t.word) > 0)
+		add_token(&t, new_token(&t));
 	return (t.head);
 }

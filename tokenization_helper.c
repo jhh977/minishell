@@ -6,7 +6,7 @@
 /*   By: jhijazi <jhijazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:01:12 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/10/31 16:24:30 by jhijazi          ###   ########.fr       */
+/*   Updated: 2025/11/17 12:40:35 by jhijazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	append_reset(t_token_helper *t, char *input)
 		t->start = t->end + 1;
 	}
 }
-
 
 void	add_special_token(t_token_helper *t, char *input)
 {

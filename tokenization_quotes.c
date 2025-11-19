@@ -6,7 +6,7 @@
 /*   By: jhijazi <jhijazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 12:42:21 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/10/31 15:12:31 by jhijazi          ###   ########.fr       */
+/*   Updated: 2025/11/16 16:13:12 by jhijazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,19 +82,3 @@ void tokenize_quotes(t_token_helper *t, char *input)
 			t->start ++;
 	}	
 }
-
-// int main()
-// {
-// 	t_token_helper t;
-// 	token_helper_init(&t);
-// 	printf("s= %d, d= %d\n", t.squote, t.dquote);
-// 	toggle_quotes(&t, '\'');
-// 	printf("s= %d, d= %d\n", t.squote, t.dquote);
-// 	if (quotes_check(t))
-// 		printf("there is quotes\n");
-// 	else
-// 		printf("there is no quotes\n");
-// 	toggle_quotes(&t, '\"');
-// 	printf("s= %d, d= %d\n", t.squote, t.dquote);
-// 	return 0;
-// }
