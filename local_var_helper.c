@@ -6,7 +6,7 @@
 /*   By: jhijazi <jhijazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 15:30:24 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/11/19 17:49:41 by jhijazi          ###   ########.fr       */
+/*   Updated: 2025/11/20 15:47:09 by jhijazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void	var_handler(t_token_helper *t, char *input)
 		value = "";
 	temp = ft_strjoin(t->word, value);
 	t->word = temp;
-
 	free(vname);
 	t->end--;
 	t->start--;
+	t->start = t->end + 1;
 }

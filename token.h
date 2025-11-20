@@ -44,5 +44,6 @@ void	append_reset(t_token_helper *t, char *input);
 int		end_of_word(char c);
 void	check_add_special(t_token_helper *t, char *input);
 void	var_handler(t_token_helper *t, char *input);
+void	add_token(t_token_helper *t, t_token *new);
 
 #endif

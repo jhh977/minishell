@@ -6,7 +6,7 @@
 /*   By: jhijazi <jhijazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:01:12 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/11/17 12:40:35 by jhijazi          ###   ########.fr       */
+/*   Updated: 2025/11/20 18:12:12 by jhijazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	append_reset(t_token_helper *t, char *input)
 {
-	if(t->end > t->start && !quotes_check(*t))
+	if (t->end > t->start && !quotes_check(*t))
 	{
 		append_word(t, input);
 		t->start = t->end + 1;
@@ -25,9 +25,9 @@ void	add_special_token(t_token_helper *t, char *input)
 {
 	if (input[t->start] == '|')
 		t->type = PIPE;
-	else if(input[t->start] == '<')
+	else if (input[t->start] == '<')
 	{
-		if(input[t->start + 1] && input[t->start + 1] == '<')
+		if (input[t->start + 1] && input[t->start + 1] == '<')
 		{
 			t->end++;
 			t->type = REDIR_HEREDOC;
@@ -35,9 +35,9 @@ void	add_special_token(t_token_helper *t, char *input)
 		else
 			t->type = REDIR_IN;
 	}
-	else if(input[t->start] == '>')
+	else if (input[t->start] == '>')
 	{
-		if(input[t->start + 1] && input[t->start + 1] == '>')
+		if (input[t->start + 1] && input[t->start + 1] == '>')
 		{
 			t->end++;
 			t->type = REDIR_APPEND;

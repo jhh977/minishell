@@ -6,7 +6,7 @@
 /*   By: jhijazi <jhijazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 12:42:21 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/11/16 16:13:12 by jhijazi          ###   ########.fr       */
+/*   Updated: 2025/11/20 18:13:34 by jhijazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,18 @@ static void	toggle_quotes(t_token_helper *t, char *input)
 {
 	if (input[t->end] == '\'' && t->dquote == 0)
 	{
-		if(t->end > 0 && input[t->end - 1] == '\\')
+		if (t->end > 0 && input[t->end - 1] == '\\')
 			return ;
 		else
 			t->squote = (t->squote + 1) % 2;
 	}
 	if (input[t->end] == '\"' && t->squote == 0)
 	{
-		if(t->end > 0 && input[t->end - 1] == '\\')
+		if (t->end > 0 && input[t->end - 1] == '\\')
 			return ;
 		else
 			t->dquote = (t->dquote + 1) % 2;
 	}
-	// printf("single: %d double: %d \n", t->squote, t->dquote);
 }
 
 int	quotes_check(t_token_helper t)
@@ -64,21 +63,23 @@ static void	end_of_quote(t_token_helper *t, char *input)
 	t->start = t->end + 1;
 }
 
-void tokenize_quotes(t_token_helper *t, char *input)
+void	tokenize_quotes(t_token_helper *t, char *input)
 {
 	append_reset(t, input);
 	toggle_quotes(t, input);
 	if (!quotes_check(*t))
 	{
-		if(input[t->end] == '\'' || input[t->end] == '\"')
+		if (input[t->end] == '\'' || input[t->end] == '\"')
 		{
-			end_of_quote(t,input);
+			end_of_quote(t, input);
 		}
 	}
 	else
 	{
-		if(t->end == t->start &&
-			(compatibility(*t, input) || input[t->end] == ' '))
+		if (input[t->end] == '$' && t->dquote)
+			var_handler(t, input);
+		if (t->end == t->start
+			&& (compatibility(*t, input) || input[t->end] == ' '))
 			t->start ++;
 	}	
 }
