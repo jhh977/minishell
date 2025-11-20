@@ -6,7 +6,7 @@
 /*   By: jhijazi <jhijazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 16:05:30 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/11/01 16:59:34 by jhijazi          ###   ########.fr       */
+/*   Updated: 2025/11/20 19:46:51 by jhijazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int main(void)
         a = readline("input$ ");
         if (!a)
             break;
-        if (ft_strncmp(a, "exit", 4) == 0)
+        if (ft_strncmp(a, "exit", 5) == 0)
         {
             free(a);
             break;
