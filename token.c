@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhijazi <jhijazi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jihad <jihad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 08:46:13 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/11/20 18:13:56 by jhijazi          ###   ########.fr       */
+/*   Updated: 2025/11/25 19:37:39 by jihad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,5 @@ void	token_helper_init(t_token_helper *t)
 	t->squote = 0;
 	t->word = "";
 	t->type = WORD;
+	t->execcode = 579;
 }

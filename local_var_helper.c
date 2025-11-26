@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   local_var_helper.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhijazi <jhijazi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jihad <jihad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 15:30:24 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/11/20 15:47:09 by jhijazi          ###   ########.fr       */
+/*   Updated: 2025/11/26 08:19:42 by jihad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,18 @@ void	var_handler(t_token_helper *t, char *input)
 	free(vname);
 	t->end--;
 	t->start--;
+	t->start = t->end + 1;
+}
+
+void	handle_question_mark(t_token_helper *t, char *input)
+{
+	char	*temp;
+	char	*codeval;
+
+	append_word(t, input);
+	codeval = ft_strdup(ft_itoa(t->execcode));
+	temp = ft_strjoin(t->word, codeval);
+	t->word = temp;
+	t->end++;
 	t->start = t->end + 1;
 }

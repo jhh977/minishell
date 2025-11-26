@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhijazi <jhijazi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jihad <jihad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 14:13:27 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/11/20 19:29:06 by jhijazi          ###   ########.fr       */
+/*   Updated: 2025/11/25 20:09:27 by jihad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,12 @@ void	check_word(t_token_helper *t, char *input)
 		t->start = t->end + 1;
 	}
 	else if (input[t->end] == '$')
-		var_handler(t, input);
+	{
+		if (input[t->end + 1] == '?')
+			handle_question_mark(t, input);
+		else
+			var_handler(t, input);
+	}
 	t->end++;
 }
 

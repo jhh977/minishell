@@ -31,6 +31,7 @@ typedef struct s_token_helper
 	int dquote;
 	int squote;
 	t_token_type type;
+	int execcode;
 } t_token_helper;
 
 void	token_helper_init(t_token_helper *t);
@@ -45,5 +46,6 @@ int		end_of_word(char c);
 void	check_add_special(t_token_helper *t, char *input);
 void	var_handler(t_token_helper *t, char *input);
 void	add_token(t_token_helper *t, t_token *new);
+void	handle_question_mark(t_token_helper *t, char *input);
 
 #endif
