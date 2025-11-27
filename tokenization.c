@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihad <jihad@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jhijazi <jhijazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 14:13:27 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/11/25 20:09:27 by jihad            ###   ########.fr       */
+/*   Updated: 2025/11/27 17:53:03 by jhijazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ t_token *tokenization(char *input)
 	t_token_helper t;
 
 	token_helper_init(&t);
+	printf("After init - t.word: %p\n", (void*)t.word);//DEBUG
 	while (input[t.end])
 	{
 		check_word(&t, input);

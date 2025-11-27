@@ -6,7 +6,7 @@
 /*   By: jhijazi <jhijazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 15:00:54 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/11/20 18:12:14 by jhijazi          ###   ########.fr       */
+/*   Updated: 2025/11/27 18:02:20 by jhijazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,21 @@ void	add_token(t_token_helper *t, t_token *new)
 	else
 		(t->tail)->next = new;
 	t->tail = new;
-	t->word = "";
+	t->word = NULL;
 	t->type = WORD;
 }
 
 void	append_word(t_token_helper *t, char *input)
 {
 	char	*tempstr;
+	char	*newword;
 
+	if (t->word)
 	tempstr = ft_substr(input, t->start, t->end - t->start);
-	t->word = ft_strjoin(t->word, tempstr);
+	newword = ft_strjoin(t->word, tempstr);
+	free (t->word);
 	free(tempstr);
+	t->word = newword;
 }
 
 void	append_add_token(t_token_helper *t, char *input)

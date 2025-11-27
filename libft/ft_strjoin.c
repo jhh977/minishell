@@ -6,7 +6,7 @@
 /*   By: jhijazi <jhijazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 12:51:05 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/06/27 16:36:17 by jhijazi          ###   ########.fr       */
+/*   Updated: 2025/11/27 18:01:34 by jhijazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,12 @@ char	*ft_strjoin(const char *str1, const char *str2)
 	int		length;
 	char	*res;
 
+	if (!str1 && !str2)
+		return (ft_strdup(""));
+	if (!str1)
+		return (ft_strdup(str2));
+	if (!str2)
+		return (ft_strdup(str1));
 	length = ft_strlen(str1) + ft_strlen(str2);
 	res = malloc((length + 1) * sizeof(char));
 	if (!res)

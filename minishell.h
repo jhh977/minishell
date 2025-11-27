@@ -6,7 +6,7 @@
 /*   By: jhijazi <jhijazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 16:21:00 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/10/19 11:49:20 by jhijazi          ###   ########.fr       */
+/*   Updated: 2025/11/27 19:26:48 by jhijazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ typedef struct s_redir
 typedef struct s_cmd
 {
     char            **args;
-    t_redir         *redirections;
+    t_redir         redir_in;
+    t_redir         redir_out;
     int             pipe_fd[2];
     struct s_cmd    *next;
     struct s_cmd    *prev;
