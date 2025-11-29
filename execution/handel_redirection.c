@@ -3,23 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   handel_redirection.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-<<<<<<< HEAD
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/24 13:40:49 by aawad             #+#    #+#             */
-/*   Updated: 2025/11/29 11:16:52 by marvin           ###   ########.fr       */
-=======
 /*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 20:00:05 by aawad             #+#    #+#             */
 /*   Updated: 2025/11/11 18:41:26 by aawad            ###   ########.fr       */
->>>>>>> eee43455382b4f5868def40d6323bf9575792024
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-<<<<<<< HEAD
 int	open_fd(char *file, int flags, int mode)
 {
 	int	fd;
@@ -36,19 +28,6 @@ int	open_fd(char *file, int flags, int mode)
 int	dup_and_close(int fd, int target)
 {
 	if (dup2(fd, target) < 0)
-=======
-static int	handle_redir_in(char *filename)
-{
-	int	fd;
-
-	fd = open(filename, O_RDONLY);
-	if (fd < 0)
-	{
-		perror(filename);
-		return (-1);
-	}
-	if (dup2(fd, STDIN_FILENO) < 0)
->>>>>>> eee43455382b4f5868def40d6323bf9575792024
 	{
 		perror("dup2");
 		close(fd);
@@ -58,119 +37,51 @@ static int	handle_redir_in(char *filename)
 	return (0);
 }
 
-<<<<<<< HEAD
-int	handle_redirections(t_redir *redir)
+/* NEW: Handle input redirections */
+static int	handle_input_redirs(t_redir *redir_in)
 {
 	t_redir	*cur;
 
-	cur = redir;
+	cur = redir_in;
 	while (cur)
 	{
 		if (cur->type == REDIR_IN && handle_redir_in(cur->filename) < 0)
-			return (-1);
-		if (cur->type == REDIR_OUT && handle_redir_out(cur->filename) < 0)
-			return (-1);
-		if (cur->type == REDIR_APPEND && handle_redir_append(cur->filename) < 0)
 			return (-1);
 		if (cur->type == REDIR_HEREDOC
 			&& handle_redir_heredoc(cur->filename) < 0)
 			return (-1);
 		cur = cur->next;
-=======
-static int	handle_redir_out(char *filename)
-{
-	int	fd;
-
-	fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (fd < 0)
-	{
-		perror(filename);
-		return (-1);
 	}
-	if (dup2(fd, STDOUT_FILENO) < 0)
-	{
-		perror("dup2");
-		close(fd);
-		return (-1);
-	}
-	close(fd);
 	return (0);
 }
 
-static int	handle_redir_append(char *filename)
+/* NEW: Handle output redirections */
+static int	handle_output_redirs(t_redir *redir_out)
 {
-	int	fd;
+	t_redir	*cur;
 
-	fd = open(filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	if (fd < 0)
+	cur = redir_out;
+	while (cur)
 	{
-		perror(filename);
-		return (-1);
+		if (cur->type == REDIR_OUT && handle_redir_out(cur->filename) < 0)
+			return (-1);
+		if (cur->type == REDIR_APPEND && handle_redir_append(cur->filename) < 0)
+			return (-1);
+		cur = cur->next;
 	}
-	if (dup2(fd, STDOUT_FILENO) < 0)
-	{
-		perror("dup2");
-		close(fd);
-		return (-1);
-	}
-	close(fd);
 	return (0);
 }
 
-static int	handle_redir_heredoc(char *delimiter)
+int	handle_redirections(t_cmd *cmd)
 {
-	char	*temp_file;
-	int		fd;
-
-	temp_file = ft_strjoin("/tmp/heredoc_", delimiter);
-	if (!temp_file)
+	if (!cmd)
+		return (0);
+	
+	if (handle_input_redirs(cmd->redir_in) < 0)
 		return (-1);
-	fd = open(temp_file, O_RDONLY);
-	free(temp_file);
-	if (fd < 0)
-	{
-		perror("heredoc");
-		return (-1);
-	}
-	if (dup2(fd, STDIN_FILENO) < 0)
-	{
-		perror("dup2");
-		close(fd);
-		return (-1);
-	}
-	close(fd);
-	return (0);
-}
 
-int	handle_redirections(t_redir *redirections)
-{
-	t_redir	*current;
-
-	current = redirections;
-	while (current)
-	{
-		if (current->type == REDIR_IN)
-		{
-			if (handle_redir_in(current->filename) < 0)
-				return (-1);
-		}
-		else if (current->type == REDIR_OUT)
-		{
-			if (handle_redir_out(current->filename) < 0)
-				return (-1);
-		}
-		else if (current->type == REDIR_APPEND)
-		{
-			if (handle_redir_append(current->filename) < 0)
-				return (-1);
-		}
-		else if (current->type == REDIR_HEREDOC)
-		{
-			if (handle_redir_heredoc(current->filename) < 0)
-				return (-1);
-		}
-		current = current->next;
->>>>>>> eee43455382b4f5868def40d6323bf9575792024
-	}
+	if (handle_output_redirs(cmd->redir_out) < 0)
+		return (-1);
+	
 	return (0);
 }
