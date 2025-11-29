@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 13:40:49 by aawad             #+#    #+#             */
-/*   Updated: 2025/11/29 16:24:29 by marvin           ###   ########.fr       */
+/*   Updated: 2025/11/29 16:47:31 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ static int	handle_input_redirs(t_redir *redir_in)
 	return (0);
 }
 
-/* NEW: Handle output redirections */
 static int	handle_output_redirs(t_redir *redir_out)
 {
 	t_redir	*cur;
@@ -72,7 +71,6 @@ static int	handle_output_redirs(t_redir *redir_out)
 	return (0);
 }
 
-/* UPDATED: Now takes t_cmd instead of t_redir */
 int	handle_redirections(t_cmd *cmd)
 {
 	if (!cmd)

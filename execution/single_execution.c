@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   single_execution.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 12:52:05 by aawad             #+#    #+#             */
-/*   Updated: 2025/11/24 14:18:58 by aawad            ###   ########.fr       */
+/*   Updated: 2025/11/29 16:44:30 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void	exec_child_process(t_cmd *cmd, char ***envp)
 {
 	char	*path;
 
-	if (handle_redirections(cmd->redirections) < 0)
+	if (handle_redirections(cmd) < 0)
 		exit(1);
 	path = find_path(cmd->args[0], *envp);
 	if (!path)
