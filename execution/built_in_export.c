@@ -5,8 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
+<<<<<<< HEAD
+/*   Created: 2025/11/24 12:50:30 by aawad             #+#    #+#             */
+/*   Updated: 2025/11/24 14:13:09 by aawad            ###   ########.fr       */
+=======
 /*   Created: 2025/11/08 19:55:47 by aawad             #+#    #+#             */
 /*   Updated: 2025/11/11 18:51:49 by aawad            ###   ########.fr       */
+>>>>>>> eee43455382b4f5868def40d6323bf9575792024
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +24,24 @@ void	print_export(char **envp)
 	i = 0;
 	while (envp[i])
 	{
+<<<<<<< HEAD
+		printf("declare -x %s\n", envp[i]);
+=======
 		printf("%s\n", envp[i]);
+>>>>>>> eee43455382b4f5868def40d6323bf9575792024
 		i++;
 	}
 }
 
 int	find_env_index(char **envp, char *key)
 {
+<<<<<<< HEAD
+	int	i;
+	int	len;
+=======
 	int i;
 	int len;
+>>>>>>> eee43455382b4f5868def40d6323bf9575792024
 
 	i = 0;
 	len = ft_strlen(key);
@@ -40,8 +54,11 @@ int	find_env_index(char **envp, char *key)
 	return (-1);
 }
 
+<<<<<<< HEAD
+=======
 
 
+>>>>>>> eee43455382b4f5868def40d6323bf9575792024
 void	built_in_export(t_cmd *cmd, char ***envp)
 {
 	int		i;
@@ -51,6 +68,10 @@ void	built_in_export(t_cmd *cmd, char ***envp)
 	if (!cmd->args[i])
 	{
 		print_export(*envp);
+<<<<<<< HEAD
+		g_last_status = 0;
+=======
+>>>>>>> eee43455382b4f5868def40d6323bf9575792024
 		return ;
 	}
 	while (cmd->args[i])
@@ -60,11 +81,18 @@ void	built_in_export(t_cmd *cmd, char ***envp)
 		{
 			*equal = '\0';
 			*envp = add_or_update_env(*envp, cmd->args[i], equal + 1);
+<<<<<<< HEAD
+			*equal = '=';
+=======
+>>>>>>> eee43455382b4f5868def40d6323bf9575792024
 		}
 		else
 			*envp = add_or_update_env(*envp, cmd->args[i], "");
 		i++;
 	}
+<<<<<<< HEAD
+	g_last_status = 0;
+=======
 }
 #pragma region  more then 25 lines
 char	**add_or_update_env(char **envp, char *key, char *value)
@@ -188,4 +216,5 @@ void	built_in_unset(t_cmd *cmd, char ***envp)
 		*envp = remove_env(*envp, cmd->args[i]);
 		i++;
 	}
+>>>>>>> eee43455382b4f5868def40d6323bf9575792024
 }

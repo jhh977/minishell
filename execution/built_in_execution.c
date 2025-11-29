@@ -6,7 +6,11 @@
 /*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 16:57:42 by aawad             #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2025/11/24 13:16:08 by aawad            ###   ########.fr       */
+=======
 /*   Updated: 2025/11/08 19:55:01 by aawad            ###   ########.fr       */
+>>>>>>> eee43455382b4f5868def40d6323bf9575792024
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +18,34 @@
 
 int	built_in(char *cmd)
 {
+<<<<<<< HEAD
+	if (!cmd)
+		return (0);
+	return (!ft_strcmp(cmd, "echo")
+		|| !ft_strcmp(cmd, "pwd")
+		|| !ft_strcmp(cmd, "cd")
+		|| !ft_strcmp(cmd, "exit")
+		|| !ft_strcmp(cmd, "env")
+		|| !ft_strcmp(cmd, "export")
+		|| !ft_strcmp(cmd, "unset"));
+}
+
+void	execute_builtin(t_cmd *cmd, char ***envp)
+{
+	if (ft_strcmp(cmd->args[0], "cd") == 0)
+		built_in_cd(cmd, envp);
+	else if (ft_strcmp(cmd->args[0], "export") == 0)
+		built_in_export(cmd, envp);
+	else if (ft_strcmp(cmd->args[0], "unset") == 0)
+		built_in_unset(cmd, envp);
+	else if (ft_strcmp(cmd->args[0], "exit") == 0)
+		built_in_exit(cmd);
+	else if (ft_strcmp(cmd->args[0], "pwd") == 0)
+		built_in_pwd();
+	else if (ft_strcmp(cmd->args[0], "echo") == 0)
+		built_in_echo(cmd);
+	else if (ft_strcmp(cmd->args[0], "env") == 0)
+=======
 	return (!ft_strncmp(cmd, "echo", 5)
 		||!ft_strncmp(cmd, "pwd", 5)
 		||!ft_strncmp(cmd, "cd", 3)
@@ -40,5 +72,6 @@ void	execute_builtin(t_cmd *cmd, char ***envp)
 	else if (ft_strncmp(cmd->args[0], "echo", 5) == 0)
 		built_in_echo(cmd);
 	else if (ft_strncmp(cmd->args[0], "env", 4) == 0)
+>>>>>>> eee43455382b4f5868def40d6323bf9575792024
 		built_in_env(envp);
 }
