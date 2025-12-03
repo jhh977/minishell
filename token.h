@@ -47,5 +47,6 @@ void	check_add_special(t_token_helper *t, char *input);
 void	var_handler(t_token_helper *t, char *input);
 void	add_token(t_token_helper *t, t_token *new);
 void	handle_question_mark(t_token_helper *t, char *input);
+void	free_tokens(t_token *head);
 
 #endif

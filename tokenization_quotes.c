@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization_quotes.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhijazi <jhijazi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jihad <jihad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 12:42:21 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/11/20 18:13:34 by jhijazi          ###   ########.fr       */
+/*   Updated: 2025/12/03 21:49:15 by jihad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@ static void	toggle_quotes(t_token_helper *t, char *input)
 {
 	if (input[t->end] == '\'' && t->dquote == 0)
 	{
-		if (t->end > 0 && input[t->end - 1] == '\\')
-			return ;
-		else
-			t->squote = (t->squote + 1) % 2;
+		// if (t->end > 0 && input[t->end - 1] == '\\')
+		// 	return ;
+		// else
+		t->squote = (t->squote + 1) % 2;
 	}
 	if (input[t->end] == '\"' && t->squote == 0)
 	{
-		if (t->end > 0 && input[t->end - 1] == '\\')
-			return ;
-		else
-			t->dquote = (t->dquote + 1) % 2;
+		// if (t->end > 0 && input[t->end - 1] == '\\')
+		// 	return ;
+		// else
+		t->dquote = (t->dquote + 1) % 2;
 	}
 }
 

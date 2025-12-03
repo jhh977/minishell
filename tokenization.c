@@ -6,7 +6,7 @@
 /*   By: jihad <jihad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 14:13:27 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/11/25 20:09:27 by jihad            ###   ########.fr       */
+/*   Updated: 2025/12/03 11:18:58 by jihad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	check_word(t_token_helper *t, char *input)
 	}
 	else if (end_of_word(input[t->end]) && !quotes_check(*t))
 	{
-		if (t->end > t->start || ft_strlen(t->word) > 0)
+		if (t->end > t->start || (t->word && ft_strlen(t->word) > 0))
 		{
 			append_add_token(t, input);
 		}
@@ -60,13 +60,17 @@ t_token *tokenization(char *input)
 	if (t.squote || t.dquote)
 	{
 		printf("minishell: syntax error: unclosed quote\n");
+		free_tokens(t.head);
 		return (NULL);
 	}
 	if (t.end > t.start && input[t.start])
 	{
 		append_add_token(&t, input);
 	}
-	else if (t.end == t.start && ft_strlen(t.word) > 0)
+	else if (t.end == t.start && (t.word && ft_strlen(t.word) > 0))
+	{
+		printf("testPrint");
 		add_token(&t, new_token(&t));
+	}
 	return (t.head);
 }

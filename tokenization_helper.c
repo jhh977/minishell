@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization_helper.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhijazi <jhijazi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jihad <jihad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:01:12 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/11/20 18:12:12 by jhijazi          ###   ########.fr       */
+/*   Updated: 2025/12/03 11:01:58 by jihad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,3 +58,19 @@ void	check_add_special(t_token_helper *t, char *input)
 		t->end--;
 	}	
 }	
+
+void	free_tokens(t_token *head)
+{
+	t_token	*current;
+	t_token	*next;
+
+	current = head;
+	while (current != NULL)
+	{
+		next = current->next;
+		if (current->value != NULL)
+			free(current->value);
+		free(current);
+		current = next;
+	}
+}
