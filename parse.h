@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jhijazi <jhijazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/09 18:56:03 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/12/04 19:14:55 by jhijazi          ###   ########.fr       */
+/*   Created: 2025/12/04 18:51:08 by jhijazi           #+#    #+#             */
+/*   Updated: 2025/12/04 19:13:20 by jhijazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef PARSE_H
+# define PARSE_H
 
-void	check_parse(t_token *head)
-{
-	//check before starting
-	if (!checker(head))
-		printf("ERRORRRRRRRRRRRRRRRRRRR!!!?!?!?!\n");
-	else
-		printf("YEEEEEAAAAAAAAAAAAAAH\n");
-	
-}
+int		checker(t_token *tok);
+void	check_parse(t_token *head);
+
+#endif

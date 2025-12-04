@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   local_var_helper.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihad <jihad@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jhijazi <jhijazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 15:30:24 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/11/29 22:59:08 by jihad            ###   ########.fr       */
+/*   Updated: 2025/12/04 19:03:20 by jhijazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	var_handler(t_token_helper *t, char *input)
 
 void	handle_question_mark(t_token_helper *t, char *input)
 {
-	printf("handle_question_mark: t->word before: %p\n", t->word);
 	char	*temp;
 	char	*codeval;
 	char	*old_word;
@@ -66,7 +65,6 @@ void	handle_question_mark(t_token_helper *t, char *input)
 	// 	free(t->word);
 	t->end++;
 	t->start = t->end + 1;
-	printf("handle_question_mark: t->word after: %p\n", t->word);
 	// char	*temp;
 	// char	*codeval;
 	

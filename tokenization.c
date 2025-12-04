@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihad <jihad@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jhijazi <jhijazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 14:13:27 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/12/03 11:18:58 by jihad            ###   ########.fr       */
+/*   Updated: 2025/12/04 19:03:43 by jhijazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,6 @@ t_token *tokenization(char *input)
 		append_add_token(&t, input);
 	}
 	else if (t.end == t.start && (t.word && ft_strlen(t.word) > 0))
-	{
-		printf("testPrint");
 		add_token(&t, new_token(&t));
-	}
 	return (t.head);
 }

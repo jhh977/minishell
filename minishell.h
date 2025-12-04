@@ -6,7 +6,7 @@
 /*   By: jhijazi <jhijazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 16:21:00 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/10/19 11:49:20 by jhijazi          ###   ########.fr       */
+/*   Updated: 2025/12/04 19:10:50 by jhijazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <readline/history.h>
 # include "libft/libft.h"
 # include "token.h"
+# include "parse.h"
 
 typedef struct s_redir
 {
