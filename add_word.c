@@ -43,3 +43,4 @@ void	append_add_token(t_token_helper *t, char *input)
 	append_word(t, input);
 	add_token(t, new_token(t));
 }
+
