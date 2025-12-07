@@ -12,7 +12,7 @@ ft_strjoin.c ft_strlcat.c ft_strlcpy.c ft_strlen.c ft_strmapi.c ft_strncmp.c \
 ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c ft_tolower.c ft_toupper.c \
 ft_printf.c helper/ft_putint.c helper/ft_putstr.c helper/ft_putchar.c\
 helper/ft_putunsigned.c helper/ft_puthex.c helper/ft_putadd.c\
-get_next_line.c get_next_line_utils.c
+get_next_line.c get_next_line_utils.c ft_realloc.c
 
 OBJS    = $(SRCS:.c=.o)
 

@@ -1,5 +1,6 @@
 {
 	"files.associations": {
 		"minishell.h": "c"
-	}
+	},
+	"terminal.integrated.shellIntegration.enabled": false
 }

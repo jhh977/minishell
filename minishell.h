@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhijazi <jhijazi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jihad <jihad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 16:21:00 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/12/04 19:10:50 by jhijazi          ###   ########.fr       */
+/*   Updated: 2025/12/06 22:00:44 by jihad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include <readline/history.h>
 # include "libft/libft.h"
 # include "token.h"
-# include "parse.h"
 
 typedef struct s_redir
 {
@@ -30,11 +29,16 @@ typedef struct s_redir
 typedef struct s_cmd
 {
 	char			**args;
-	t_redir			*redirections;
+	int				arg_count;
+	int				arg_cap;
+    t_redir         redir_in;
+    t_redir         redir_out;
 	int				pipe_fd[2];
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 }	t_cmd;
+
+# include "parse.h"
 
 t_token *tokenization(char *input);
 

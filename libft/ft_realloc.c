@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.h                                            :+:      :+:    :+:   */
+/*   ft_realloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jihad <jihad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/04 18:51:08 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/12/06 22:04:36 by jihad            ###   ########.fr       */
+/*   Created: 2025/12/06 20:36:17 by jihad             #+#    #+#             */
+/*   Updated: 2025/12/06 21:18:47 by jihad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSE_H
-# define PARSE_H
-# include "minishell.h"
+#include "libft.h"
 
-int		checker(t_token *tok);
-t_cmd	*check_parse(t_token *head);
-int	    is_redir(t_token *tok);
-void	handle_redir(t_token **token, t_cmd *cmd);
-t_cmd	*create_cmd(void);
-void	add_cmd_to_list(t_cmd **list, t_cmd *new_cmd);
+void	*ft_realloc(void *ptr, size_t new_size)
+{
+	void	*new;
 
-#endif
+	new = malloc(new_size);
+	if (!new)
+		return (NULL);
+	ft_memcpy(new, ptr, new_size / 2);
+	return (new);
+}
