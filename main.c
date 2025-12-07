@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihad <jihad@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 16:05:30 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/12/06 22:01:40 by jihad            ###   ########.fr       */
+/*   Updated: 2025/12/07 20:31:43 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,11 @@ void	print_commands(t_cmd *cmd_list)
 		
 		// Print redirections
 		if (current->redir_in.filename)
-			printf("  Input redir: %s (type: %d)\n", 
-				current->redir_in.filename, current->redir_in.type);
+			printf("  Input redir: %s (type: %s)\n", 
+				current->redir_in.filename, get_token_type_name(current->redir_in.type));
 		if (current->redir_out.filename)
-			printf("  Output redir: %s (type: %d)\n", 
-				current->redir_out.filename, current->redir_out.type);
+			printf("  Output redir: %s (type: %s)\n", 
+				current->redir_out.filename, get_token_type_name(current->redir_out.type));
 		
 		printf("---\n");
 		current = current->next;

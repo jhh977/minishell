@@ -3,21 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_helper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihad <jihad@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 20:56:46 by jihad             #+#    #+#             */
-/*   Updated: 2025/12/06 22:04:29 by jihad            ###   ########.fr       */
+/*   Updated: 2025/12/07 20:22:21 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	init_cmd(t_cmd *cmd)
-{
-	cmd->arg_cap = 10;
-	cmd->args = malloc(sizeof(char *) * cmd->arg_cap);
-	cmd->arg_count = 0;
-}
 
 t_cmd	*create_cmd(void)
 {

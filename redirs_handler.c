@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirs_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihad <jihad@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 14:49:26 by jihad             #+#    #+#             */
-/*   Updated: 2025/12/06 22:06:02 by jihad            ###   ########.fr       */
+/*   Updated: 2025/12/07 20:25:58 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,5 @@ void	handle_redir(t_token **token, t_cmd *cmd)
 	else
 		return ;
 	add_redir_to_cmd(cmd, redir);
-	*token = (*token)->next->next;
+	*token = (*token)->next;
 }

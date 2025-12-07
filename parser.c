@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihad <jihad@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 18:56:03 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/12/06 21:11:17 by jihad            ###   ########.fr       */
+/*   Updated: 2025/12/07 20:21:41 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,10 @@ t_cmd	*check_parse(t_token *tokens)
 	t_cmd	*cmd_list;
 	t_cmd	*cmd;
 
+	if (!tokens)
+		return (NULL);
 	if (!checker(tokens))
 		return (NULL);
-	
 	cmd_list = NULL;
 	while (tokens != NULL)
 	{
