@@ -6,7 +6,7 @@
 /*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 16:05:30 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/12/07 20:31:43 by jhh              ###   ########.fr       */
+/*   Updated: 2025/12/08 12:35:07 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,17 +69,17 @@ int main(void)
 	// t_token     *tmp;
 	t_cmd		*cmd;
 
-	while (1)
-	{
-		a = readline("> ");
-		if (!a)              // Ctrl-D
-			break;
-
-		if (ft_strncmp(a, "exit", 5) == 0)
-		{
-			free(a);
-			break;
-		}
+	// while (1)
+	// {
+		// a = readline("> ");
+		// if (!a)
+		// 	break;
+		a = "< a > b cde $USER CDXDDDDDDD$USER >>E <<f | <in.tst echo hello >> out.tst EEEEE | secsdncjsndk <jsdif>jsuidhf| XDXD";
+		// if (ft_strncmp(a, "exit", 5) == 0)
+		// {
+		// 	free(a);
+		// 	// break;
+		// }
 
 		head = tokenization(a);
 		// tmp = head;
@@ -87,7 +87,8 @@ int main(void)
 		cmd = check_parse(head);
 		print_commands(cmd);//here this one
 		free_tokens(head);
-		free(a);
-	}
+		free_cmd_list(cmd);
+		// free(a);
+	// }
 	return (0);
 }

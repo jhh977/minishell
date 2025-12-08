@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihad <jihad@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 18:51:08 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/12/06 22:04:36 by jihad            ###   ########.fr       */
+/*   Updated: 2025/12/08 12:29:31 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,6 @@ int	    is_redir(t_token *tok);
 void	handle_redir(t_token **token, t_cmd *cmd);
 t_cmd	*create_cmd(void);
 void	add_cmd_to_list(t_cmd **list, t_cmd *new_cmd);
+void	free_cmd_list(t_cmd *cmd_list);
 
 #endif
