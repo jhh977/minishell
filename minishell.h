@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihad <jihad@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 16:21:00 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/12/06 22:00:44 by jihad            ###   ########.fr       */
+/*   Updated: 2025/12/11 14:14:09 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_cmd
 	int				arg_cap;
     t_redir         redir_in;
     t_redir         redir_out;
+    t_redir         *redirs;
 	int				pipe_fd[2];
 	struct s_cmd	*next;
 	struct s_cmd	*prev;

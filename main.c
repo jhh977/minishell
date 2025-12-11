@@ -6,7 +6,7 @@
 /*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 16:05:30 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/12/08 12:35:07 by jhh              ###   ########.fr       */
+/*   Updated: 2025/12/11 15:59:18 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,24 @@ void	print_commands(t_cmd *cmd_list)
 		}
 		printf("\n");
 		
-		// Print redirections
-		if (current->redir_in.filename)
-			printf("  Input redir: %s (type: %s)\n", 
-				current->redir_in.filename, get_token_type_name(current->redir_in.type));
-		if (current->redir_out.filename)
-			printf("  Output redir: %s (type: %s)\n", 
-				current->redir_out.filename, get_token_type_name(current->redir_out.type));
+		t_redir	*arr;
+		// // Print redirections
+		// if (current->redir_in.filename)
+		// 	printf("  Input redir: %s (type: %s)\n", 
+		// 		current->redir_in.filename, get_token_type_name(current->redir_in.type));
+		// if (current->redir_out.filename)
+		// 	printf("  Output redir: %s (type: %s)\n", 
+		// 		current->redir_out.filename, get_token_type_name(current->redir_out.type));
+		if (current->redirs)
+		{
+			arr = current->redirs;
+			printf("list of redirs: ");
+			while(arr)
+			{
+				printf("%s:%s, ", get_token_type_name(arr->type), arr->filename);
+				arr = arr->next;
+			}
+		}
 		
 		printf("---\n");
 		current = current->next;
@@ -74,7 +85,7 @@ int main(void)
 		// a = readline("> ");
 		// if (!a)
 		// 	break;
-		a = "< a > b cde $USER CDXDDDDDDD$USER >>E <<f | <in.tst echo hello >> out.tst EEEEE | secsdncjsndk <jsdif>jsuidhf| XDXD";
+		a = "<a <b <c <d <<e <<f <<g cat >> h >> i >> hhhh >> klo >> ppp >> bh > abcd";
 		// if (ft_strncmp(a, "exit", 5) == 0)
 		// {
 		// 	free(a);

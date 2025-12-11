@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhijazi <jhijazi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 18:51:03 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/12/04 18:51:06 by jhijazi          ###   ########.fr       */
+/*   Updated: 2025/12/11 15:54:23 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ typedef enum e_token_type
 	REDIR_APPEND,
 	REDIR_HEREDOC,
 	END_OF_INPUT,
-	VARIABLE,
-	SPACE_TOKEN,
 }	t_token_type;
 
 typedef struct s_token
