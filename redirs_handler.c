@@ -6,7 +6,7 @@
 /*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 14:49:26 by jihad             #+#    #+#             */
-/*   Updated: 2025/12/07 20:25:58 by jhh              ###   ########.fr       */
+/*   Updated: 2025/12/11 16:00:42 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,29 @@ static t_redir	create_redir(t_token_type type, char *filename)
 
 	redir.type = type;
 	redir.filename = ft_strdup(filename);	return (redir);
+}
+
+static void	add_redir_to_list(t_cmd *cmd, t_redir redir)
+{
+	t_redir	*new_node;
+	t_redir	*current;
+
+	new_node = malloc(sizeof(t_redir));
+	if (!new_node)
+		return ;
+		//print error
+	new_node->type = redir.type;
+	new_node->filename = ft_strdup(redir.filename);
+	new_node->next = NULL;
+	if (!cmd->redirs)
+		cmd->redirs = new_node;
+	else
+	{
+		current = cmd->redirs;
+		while (current->next)
+			current = current->next;
+		current->next = new_node;
+	}
 }
 
 static void	add_redir_to_cmd(t_cmd *cmd, t_redir redir)
@@ -34,6 +57,7 @@ static void	add_redir_to_cmd(t_cmd *cmd, t_redir redir)
 			free(cmd->redir_out.filename);
 		cmd->redir_out = redir;
 	}
+	add_redir_to_list(cmd, redir);
 }
 
 void	handle_redir(t_token **token, t_cmd *cmd)

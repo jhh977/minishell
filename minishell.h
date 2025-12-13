@@ -35,8 +35,6 @@ typedef enum e_token_type
 	REDIR_APPEND,
 	REDIR_HEREDOC,
 	END_OF_INPUT,
-	VARIABLE,
-	SPACE_TOKEN,
 }	t_token_type;
 
 typedef struct s_token
@@ -73,6 +71,7 @@ typedef struct s_cmd
 	int				arg_cap;
 	t_redir			redir_in;
 	t_redir			redir_out;
+	t_redir         *redirs;
 	int				pipe_fd[2];
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
