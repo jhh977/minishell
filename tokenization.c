@@ -6,7 +6,7 @@
 /*   By: jhijazi <jhijazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 14:13:27 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/12/04 19:03:43 by jhijazi          ###   ########.fr       */
+/*   Updated: 2025/12/13 17:10:38 by jhijazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,11 @@ void	check_word(t_token_helper *t, char *input)
 	t->end++;
 }
 
-t_token *tokenization(char *input)
+t_token *tokenization(char *input, char ***envp)
 {
 	t_token_helper t;
 
-	token_helper_init(&t);
+	token_helper_init(&t, *envp);
 	while (input[t.end])
 	{
 		check_word(&t, input);

@@ -63,7 +63,7 @@ static void	process_input(char *input, char ***envp)
 
 	if (!input || !*input)
 		return ;
-	tokens = tokenization(input);
+	tokens = tokenization(input, envp);
 	if (!tokens)
 		return ;
 	cmd_list = check_parse(tokens);

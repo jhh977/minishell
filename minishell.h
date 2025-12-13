@@ -55,6 +55,7 @@ typedef struct s_token_helper
 	int				squote;
 	t_token_type	type;
 	int				execcode;
+	char			**envp;
 }	t_token_helper;
 
 typedef struct s_redir
@@ -126,8 +127,8 @@ int		*save_std_fds(void);
 void	restore_std_fds(int *saved_fds);
 
 // Tokenization
-t_token	*tokenization(char *input);
-void	token_helper_init(t_token_helper *t);
+t_token	*tokenization(char *input, char ***envp);
+void	token_helper_init(t_token_helper *t, char **envp);
 t_token	*new_token(t_token_helper *t);
 int		quotes_check(t_token_helper t);
 void	append_add_token(t_token_helper *t, char *input);

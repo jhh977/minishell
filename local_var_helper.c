@@ -6,7 +6,7 @@
 /*   By: jhijazi <jhijazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 15:30:24 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/12/04 19:03:20 by jhijazi          ###   ########.fr       */
+/*   Updated: 2025/12/13 17:13:47 by jhijazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,25 @@ static int	var_name_check(char c)
 		|| c == '_')
 		return (1);
 	return (0);
+}
+
+static char	*env_value(char **envp, char *vname)
+{
+	int	i;
+	int	len;
+
+	if (!envp || !vname)
+		return (NULL);
+	len = ft_strlen(vname);
+	i = 0;
+	while (envp[i])
+	{
+		if (ft_strncmp(envp[i], vname, len) == 0 && 
+		    envp[i][len] == '=')
+			return (envp[i] + len + 1);
+		i++;
+	}
+	return (NULL);
 }
 
 void	var_handler(t_token_helper *t, char *input)
@@ -36,7 +55,7 @@ void	var_handler(t_token_helper *t, char *input)
 	while (input[t->end] && var_name_check(input[t->end]))
 		t->end++;
 	vname = ft_substr(input, t->start, t->end - t->start);
-	value = getenv(vname);
+	value = env_value(t->envp, vname);
 	if (value == NULL)
 		value = "";
 	temp = ft_strjoin(t->word, value);

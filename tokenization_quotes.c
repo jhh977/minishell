@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization_quotes.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihad <jihad@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jhijazi <jhijazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 12:42:21 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/12/03 21:49:15 by jihad            ###   ########.fr       */
+/*   Updated: 2025/12/13 17:19:01 by jhijazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,11 @@ void	tokenize_quotes(t_token_helper *t, char *input)
 	else
 	{
 		if (input[t->end] == '$' && t->dquote)
+		{
+			if(input[t->end + 1] && input[t->end + 1] == '?')
+				handle_question_mark(t, input);
+		}
+		else
 			var_handler(t, input);
 		if (t->end == t->start
 			&& (compatibility(*t, input) || input[t->end] == ' '))
