@@ -77,7 +77,7 @@ typedef struct s_cmd
 	struct s_cmd	*prev;
 }	t_cmd;
 
-// Execution
+// ExecutioN
 void	execute_single_command(t_cmd *cmd, char ***envp);
 void	execute_pipeline(t_cmd *cmd_list, char ***envp);
 int		is_pipeline(t_cmd *cmd_list);
