@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization_quotes.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhijazi <jhijazi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 12:42:21 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/12/13 17:19:01 by jhijazi          ###   ########.fr       */
+/*   Updated: 2025/12/15 15:04:12 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,10 @@ static int	compatibility(t_token_helper t, char *input)
 
 static void	end_of_quote(t_token_helper *t, char *input)
 {
-	int	spaces;
-
-	spaces = 0;
-	while (input[t->end - spaces - 1] == ' ')
-		spaces++;
-	t->end -= spaces;
 	if (end_of_word(input[t->end + 1]) || !input[t->end + 1])
 		append_add_token(t, input);
 	else
 		append_word(t, input);
-	t->end += spaces;
-	spaces = 0;
 	t->start = t->end + 1;
 }
 
@@ -80,11 +72,11 @@ void	tokenize_quotes(t_token_helper *t, char *input)
 		{
 			if(input[t->end + 1] && input[t->end + 1] == '?')
 				handle_question_mark(t, input);
+			else
+				var_handler(t, input);
 		}
-		else
-			var_handler(t, input);
 		if (t->end == t->start
-			&& (compatibility(*t, input) || input[t->end] == ' '))
+			&& compatibility(*t, input))
 			t->start ++;
 	}	
 }
