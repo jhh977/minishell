@@ -31,14 +31,23 @@ void	built_in_pwd(void)
 void	built_in_echo(t_cmd *cmd)
 {
 	int	i;
+	int j;
 	int	newline;
 
+	j = 1;
 	i = 1;
 	newline = 1;
-	if (cmd->args[i] && ft_strcmp(cmd->args[i], "-n") == 0)
+	if (cmd->args[i] && cmd->args[i][0] == '-')
 	{
-		newline = 0;
-		i++;
+		while(cmd->args[i][j] == 'n')
+		{
+			j++;
+		}
+		if (cmd->args[i][j] == '\0' && j > 1)
+		{
+			newline = 0;
+			i++;
+		}
 	}
 	while (cmd->args[i])
 	{
