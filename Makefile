@@ -8,7 +8,7 @@ HEAD    = minishell.h
 PARSE_SRCS = tokenization.c token.c tokenization_quotes.c \
              tokenization_helper.c local_var_helper.c add_word.c \
              parse_checker.c parser.c cmd_helper.c redirs_handler.c \
-             free_functions_parsing.c
+             free_functions_parsing.c signals.c
 
 # Execution & Built-ins (in execution/ directory)
 EXEC_SRCS = execution/built_in_command1.c \

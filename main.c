@@ -95,6 +95,7 @@ int	main(int argc, char **argv, char **envp)
 	}
 	while (1)
 	{
+		setup_interactive_signals();
 		input = readline("minishell$ ");
 		if (!input)
 		{

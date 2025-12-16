@@ -13,6 +13,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# define _POSIX_C_SOURCE 200809L
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -21,6 +22,7 @@
 # include <string.h>
 # include <fcntl.h>
 # include <errno.h>
+# include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "libft/libft.h"
@@ -151,5 +153,9 @@ t_cmd	*create_cmd(void);
 void	add_cmd_to_list(t_cmd **list, t_cmd *new_cmd);
 void	free_cmd_list(t_cmd *cmd_list);
 void	add_arg(t_cmd *cmd, char *value);
+
+//Signals
+void	setup_interactive_signals(void);
+void	setup_child_signals(void);
 
 #endif
