@@ -148,7 +148,7 @@ void	free_tokens(t_token *head);
 int		checker(t_token *tok);
 t_cmd	*check_parse(t_token *head);
 int		is_redir(t_token *tok);
-void	handle_redir(t_token **token, t_cmd *cmd);
+int		handle_redir(t_token **token, t_cmd *cmd);
 t_cmd	*create_cmd(void);
 void	add_cmd_to_list(t_cmd **list, t_cmd *new_cmd);
 void	free_cmd_list(t_cmd *cmd_list);

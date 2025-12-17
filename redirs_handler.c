@@ -6,7 +6,7 @@
 /*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 14:49:26 by jihad             #+#    #+#             */
-/*   Updated: 2025/12/11 16:00:42 by jhh              ###   ########.fr       */
+/*   Updated: 2025/12/17 13:02:35 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,10 @@ static void	add_redir_to_list(t_cmd *cmd, t_redir redir)
 
 	new_node = malloc(sizeof(t_redir));
 	if (!new_node)
+	{
+		ft_putstr_error("Error: Failed to create new node\n");
 		return ;
-		//print error
+	}
 	new_node->type = redir.type;
 	new_node->filename = ft_strdup(redir.filename);
 	new_node->next = NULL;
@@ -60,11 +62,16 @@ static void	add_redir_to_cmd(t_cmd *cmd, t_redir redir)
 	add_redir_to_list(cmd, redir);
 }
 
-void	handle_redir(t_token **token, t_cmd *cmd)
+int	handle_redir(t_token **token, t_cmd *cmd)
 {
 	t_redir	redir;
 
-	if ((*token)->type == REDIR_IN)
+	if (!(*token)->next)
+	{
+		ft_putstr_error("bash: syntax error near unexpected token `newline'\n");
+		return (0);
+	}
+	else if ((*token)->type == REDIR_IN)
 		redir = create_redir(REDIR_IN, (*token)->next->value);
 	else if ((*token)->type == REDIR_OUT)
 		redir = create_redir(REDIR_OUT, (*token)->next->value);
@@ -73,7 +80,8 @@ void	handle_redir(t_token **token, t_cmd *cmd)
 	else if ((*token)->type == REDIR_HEREDOC)
 		redir = create_redir(REDIR_HEREDOC, (*token)->next->value);
 	else
-		return ;
+		return (0);
 	add_redir_to_cmd(cmd, redir);
 	*token = (*token)->next;
+	return (1);
 }

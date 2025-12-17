@@ -6,7 +6,7 @@
 /*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 18:56:03 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/12/07 20:21:41 by jhh              ###   ########.fr       */
+/*   Updated: 2025/12/17 13:01:24 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,18 @@ void	add_arg(t_cmd *cmd, char *value)
 		cmd->arg_cap *= 2;
 		new_args = ft_realloc(cmd->args, sizeof(char *) * cmd->arg_cap);
 		if (!new_args)
+		{
+			ft_putstr_error("Error: Failed to create args array\n");
 			return ;
-		//handle error
+		}
 		cmd->args = new_args;
 	}
 	cmd->args[cmd->arg_count] = ft_strdup(value);
 	if (!cmd->args[cmd->arg_count])
+	{
+		ft_putstr_error("Error: Failed to set Args new value\n");
 		return ;
-	//handle error
+	}
 	cmd->arg_count++;
 	cmd->args[cmd->arg_count] = NULL;
 }
@@ -49,7 +53,10 @@ t_cmd	*check_parse(t_token *tokens)
 		while (tokens && tokens->type != PIPE)
 		{
 			if (is_redir(tokens))
-				handle_redir(&tokens, cmd);
+			{
+				if (!handle_redir(&tokens, cmd))
+					return (NULL);
+			}
 			else if (tokens->type == WORD)
 				add_arg(cmd, tokens->value);
 			tokens = tokens->next;

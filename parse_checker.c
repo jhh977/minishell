@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_checker.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihad <jihad@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 18:09:31 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/12/06 14:39:11 by jihad            ###   ########.fr       */
+/*   Updated: 2025/12/17 12:58:57 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,25 @@ int	is_redir(t_token *tok)
 static int check_pipe(t_token *tok)
 {
 	if (!tok->next)
+	{
+		ft_putstr_error("Error: Pipe must be followed by a command\n");
 		return (0);
-	//print error
+	}
 	if (tok->next->type == PIPE)
+	{
+		ft_putstr_error("Error: Consecutive pipes\n");
 		return (0);
-	//print error
+	}
 	return (1);
 }
 
 int checker(t_token *tok)
 {
 	if (tok->type == PIPE)
+	{
+		ft_putstr_error("Pipe at the beginning of the prompt\n");
 		return (0);
+	}
 	while (tok)
 	{
 		if (tok->type == PIPE)
@@ -48,8 +55,10 @@ int checker(t_token *tok)
 		if (is_redir(tok))
 		{
 			if (tok->next && (is_redir(tok->next) || tok->next->type == PIPE))
-				//print error
+			{
+				ft_putstr_error("bash: syntax error near unexpected token `|'\n");
 				return (0);
+			}
 		}
 		tok = tok->next;
 	}

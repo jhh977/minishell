@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihad <jihad@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 16:32:56 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/12/06 21:19:09 by jihad            ###   ########.fr       */
+/*   Updated: 2025/12/17 11:50:55 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,7 @@ int				ft_putadd(void *ptr);
 void			*ft_realloc(void *ptr, size_t new_size);
 int	            ft_strcmp(const char *s1, const char *s2);
 char	        *ft_strcpy(char *dest, const char *src);
+int	            ft_putstr_error(char *s);
+int	            ft_putchar_error(int c);
+
 #endif
