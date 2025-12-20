@@ -6,7 +6,7 @@
 /*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 20:56:46 by jihad             #+#    #+#             */
-/*   Updated: 2025/12/07 20:22:21 by jhh              ###   ########.fr       */
+/*   Updated: 2025/12/20 17:01:53 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_cmd	*create_cmd(void)
 	cmd->prev = NULL;
 	cmd->pipe_fd[0] = -1;
 	cmd->pipe_fd[1] = -1;
+	cmd->redirs = NULL;
 	return (cmd);
 }
 
