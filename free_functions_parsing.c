@@ -6,7 +6,7 @@
 /*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 11:54:30 by jhh               #+#    #+#             */
-/*   Updated: 2025/12/08 12:26:28 by jhh              ###   ########.fr       */
+/*   Updated: 2025/12/22 17:48:21 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,25 @@ static void	close_pipe_fds(t_cmd *cmd)
 		close(cmd->pipe_fd[1]);
 }
 
+static void	free_redirs_list(t_cmd *cmd)
+{
+	t_redir	*current;
+	t_redir	*next;
+
+	if (!cmd)
+		return ;
+	current = cmd->redirs;
+	while (current)
+	{
+		next = current->next;
+		if (current->filename)
+			free(current->filename);
+		free(current);
+		current = next;
+	}
+	cmd->redirs = NULL;
+}
+
 void	free_cmd_list(t_cmd *cmd_list)
 {
 	t_cmd	*current;
@@ -53,6 +72,7 @@ void	free_cmd_list(t_cmd *cmd_list)
 		free_args(current->args, current->arg_count);
 		free_redirs(current);
 		close_pipe_fds(current);
+		free_redirs_list(current);
 		free(current);
 		current = next;
 	}

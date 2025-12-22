@@ -76,8 +76,8 @@ static void	process_input(char *input, char ***envp)
 		execute_pipeline(cmd_list, envp);
 	else
 		execute_single_command(cmd_list, envp);
-	free_tokens(tokens);
 	free_cmd_list(cmd_list);
+	free_tokens(tokens);
 }
 
 int	main(int argc, char **argv, char **envp)
