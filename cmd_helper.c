@@ -35,6 +35,7 @@ t_cmd	*create_cmd(void)
 		free(cmd);
 		return (NULL);
 	}
+	cmd->args[0] = NULL;
 	return (cmd);
 }
 

@@ -32,6 +32,7 @@ void	exec_child_process(t_cmd *cmd, char ***envp)
 {
 	char	*path;
 
+	setup_child_signals();
 	if (handle_redirections(cmd) < 0)
 		exit(1);
 	path = find_path(cmd->args[0], *envp);

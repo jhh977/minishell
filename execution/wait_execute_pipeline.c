@@ -17,6 +17,7 @@ static void	execute_command_child(t_cmd *cmd, char ***envp,
 {
 	char	*path;
 
+	setup_child_signals();
 	setup_pipe_fds(cmd_index, num_cmds, pipes);
 	if (handle_redirections(cmd) < 0)
 		exit(1);

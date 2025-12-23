@@ -27,6 +27,8 @@ int	built_in(char *cmd)
 
 void	execute_builtin(t_cmd *cmd, char ***envp)
 {
+	if (!cmd || !cmd->args || !cmd->args[0])
+		return;
 	if (ft_strcmp(cmd->args[0], "cd") == 0)
 		built_in_cd(cmd, *envp);
 	else if (ft_strcmp(cmd->args[0], "export") == 0)
