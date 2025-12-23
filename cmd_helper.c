@@ -6,7 +6,7 @@
 /*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 20:56:46 by jihad             #+#    #+#             */
-/*   Updated: 2025/12/20 17:01:53 by jhh              ###   ########.fr       */
+/*   Updated: 2025/12/23 14:31:51 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,6 @@ t_cmd	*create_cmd(void)
 	cmd = malloc(sizeof(t_cmd));
 	if (!cmd)
 		return (NULL);
-	cmd->arg_cap = 10;
-	cmd->args = malloc(sizeof(char *) * cmd->arg_cap);
-	if (!cmd->args)
-	{
-		free(cmd);
-		return (NULL);
-	}
 	cmd->arg_count = 0;
 	cmd->redir_in.filename = NULL;
 	cmd->redir_out.filename = NULL;
@@ -34,6 +27,14 @@ t_cmd	*create_cmd(void)
 	cmd->pipe_fd[0] = -1;
 	cmd->pipe_fd[1] = -1;
 	cmd->redirs = NULL;
+	cmd->arg_cap = 10;
+	cmd->args = NULL;
+	cmd->args = malloc(sizeof(char *) * cmd->arg_cap);
+	if (!cmd->args)
+	{
+		free(cmd);
+		return (NULL);
+	}
 	return (cmd);
 }
 

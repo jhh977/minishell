@@ -6,7 +6,7 @@
 /*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 18:56:03 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/12/17 13:01:24 by jhh              ###   ########.fr       */
+/*   Updated: 2025/12/23 14:39:48 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,7 @@ t_cmd	*check_parse(t_token *tokens)
 	t_cmd	*cmd_list;
 	t_cmd	*cmd;
 
-	if (!tokens)
-		return (NULL);
-	if (!checker(tokens))
+	if (!tokens || !checker(tokens))
 		return (NULL);
 	cmd_list = NULL;
 	while (tokens != NULL)
@@ -55,7 +53,10 @@ t_cmd	*check_parse(t_token *tokens)
 			if (is_redir(tokens))
 			{
 				if (!handle_redir(&tokens, cmd))
+				{
+					free_cmd_list(cmd);
 					return (NULL);
+				}
 			}
 			else if (tokens->type == WORD)
 				add_arg(cmd, tokens->value);

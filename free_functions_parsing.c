@@ -6,7 +6,7 @@
 /*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 11:54:30 by jhh               #+#    #+#             */
-/*   Updated: 2025/12/22 17:48:21 by jhh              ###   ########.fr       */
+/*   Updated: 2025/12/23 14:33:06 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,13 @@ static void	free_args(char **args, int arg_count)
 {
 	int	i;
 
+	if (!args)
+		return ;
 	i = 0;
 	while (i < arg_count)
 	{
-		free(args[i]);
+		if (args[i])
+			free(args[i]);
 		i++;
 	}
 	free(args);
@@ -27,6 +30,8 @@ static void	free_args(char **args, int arg_count)
 
 static void	free_redirs(t_cmd *cmd)
 {
+	if(!cmd)
+		return ;
 	if (cmd->redir_in.filename)
 		free(cmd->redir_in.filename);
 	if (cmd->redir_out.filename)
