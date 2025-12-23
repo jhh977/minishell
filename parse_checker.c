@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_checker.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jhijazi <jhijazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 18:09:31 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/12/17 12:58:57 by jhh              ###   ########.fr       */
+/*   Updated: 2025/12/23 20:46:28 by jhijazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,16 @@ int checker(t_token *tok)
 		}
 		if (is_redir(tok))
 		{
-			if (tok->next && (is_redir(tok->next) || tok->next->type == PIPE))
-			{
-				ft_putstr_error("bash: syntax error near unexpected token `|'\n");
-				return (0);
-			}
+				if (tok->next && tok->next->type == PIPE)
+				{
+					ft_putstr_error("bash: syntax error near unexpected token `|'\n");
+					return (0);
+				}
+				if (tok->next && is_redir(tok->next))
+				{
+					ft_putstr_error("bash: syntax error near unexpected token `newline'\n");
+					return (0);
+				}
 		}
 		tok = tok->next;
 	}

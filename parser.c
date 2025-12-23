@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jhijazi <jhijazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 18:56:03 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/12/23 14:39:48 by jhh              ###   ########.fr       */
+/*   Updated: 2025/12/23 18:55:43 by jhijazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_cmd	*check_parse(t_token *tokens)
 				if (!handle_redir(&tokens, cmd))
 				{
 					free_cmd_list(cmd);
-					return (NULL);
+					return (cmd_list);
 				}
 			}
 			else if (tokens->type == WORD)

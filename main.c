@@ -72,10 +72,10 @@ static void	process_input(char *input, char ***envp)
 		free_tokens(tokens);
 		return ;
 	}
-	if (is_pipeline(cmd_list))
-		execute_pipeline(cmd_list, envp);
-	else
-		execute_single_command(cmd_list, envp);
+	// if (is_pipeline(cmd_list))
+	// 	execute_pipeline(cmd_list, envp);
+	// else
+	// 	execute_single_command(cmd_list, envp);
 	free_cmd_list(cmd_list);
 	free_tokens(tokens);
 }
