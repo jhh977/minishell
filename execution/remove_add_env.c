@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   remove_add_env.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 14:13:19 by aawad             #+#    #+#             */
-/*   Updated: 2025/11/24 14:13:34 by aawad            ###   ########.fr       */
+/*   Updated: 2025/12/26 15:56:48 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ char	**remove_env(char **envp, char *key)
 	int		index;
 	int		count;
 	char	**new_env;
+	int		j;
 
 	index = find_env_index(envp, key);
 	if (index == -1)
@@ -68,7 +69,7 @@ char	**remove_env(char **envp, char *key)
 	new_env = malloc(sizeof(char *) * count);
 	if (!new_env)
 		return (envp);
-	int j = 0;
+	j = 0;
 	count = 0;
 	while (envp[count])
 	{

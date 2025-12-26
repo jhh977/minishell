@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handel_single_execution.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 14:18:23 by aawad             #+#    #+#             */
-/*   Updated: 2025/12/25 00:00:00 by aawad            ###   ########.fr       */
+/*   Updated: 2025/12/26 15:59:47 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,10 @@ void	exec_child_process(t_cmd *cmd, char ***envp)
 	setup_child_signals();
 	if (handle_redirections(cmd) < 0)
 	{
-	    if (g_last_status != 130)
-	        g_last_status = 1;
-	    exit(g_last_status);
+		if (g_last_status != 130)
+			g_last_status = 1;
+		exit(g_last_status);
 	}
-
-
 	path = find_path(cmd->args[0], *envp);
 	if (!path)
 	{
@@ -76,16 +74,15 @@ void	execute_single_command(t_cmd *cmd, char ***envp)
 {
 	pid_t	pid;
 	int		status;
+	int		sig;
 
 	if (built_in(cmd->args[0]))
 	{
 		handle_builtin_cmd(cmd, envp);
 		return ;
 	}
-
 	ignore_signals();
 	pid = fork();
-
 	if (pid == 0)
 	{
 		exec_child_process(cmd, envp);
@@ -98,24 +95,21 @@ void	execute_single_command(t_cmd *cmd, char ***envp)
 			{
 				perror("waitpid");
 				g_last_status = 1;
-				break;
+				break ;
 			}
 		}
 		setup_interactive_signals();
-
 		if (WIFEXITED(status))
 			g_last_status = WEXITSTATUS(status);
 		else if (WIFSIGNALED(status))
 		{
-		    int sig = WTERMSIG(status);
-		
-		    g_last_status = 128 + sig;
-		    if (sig == SIGINT)
-		        write(1, "\n", 1);
-		    else if (sig == SIGQUIT)
-		        write(2, "Quit (core dumped)\n", 20);
+			sig = WTERMSIG(status);
+			g_last_status = 128 + sig;
+			if (sig == SIGINT)
+				write(1, "\n", 1);
+			else if (sig == SIGQUIT)
+				write(2, "Quit (core dumped)\n", 20);
 		}
-
 	}
 	else
 	{
