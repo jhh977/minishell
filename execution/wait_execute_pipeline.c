@@ -6,22 +6,20 @@
 /*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 14:03:15 by aawad             #+#    #+#             */
-/*   Updated: 2025/12/25 00:00:00 by aawad            ###   ########.fr       */
+/*   Updated: 2025/12/26 22:20:10 by aawad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	execute_command_child(t_cmd *cmd, char ***envp,
-					int cmd_index, int num_cmds, int **pipes)
+static void	execute_command_child(t_cmd *cmd, char ***envp, t_pipe_ctx *ctx)
 {
 	char	*path;
 
 	setup_child_signals();
-	setup_pipe_fds(cmd_index, num_cmds, pipes);
+	setup_pipe_fds(ctx->cmd_index, ctx->num_cmds, ctx->pipes);
 	if (handle_redirections(cmd) < 0)
 		exit(1);
-	setup_child_signals();
 	if (built_in(cmd->args[0]))
 	{
 		execute_builtin(cmd, envp);
@@ -41,13 +39,68 @@ static void	execute_command_child(t_cmd *cmd, char ***envp,
 	exit(126);
 }
 
-void		execute_pipeline(t_cmd *cmd_list, char ***envp)
+static void	handle_fork_error(t_pipe_ctx *ctx, pid_t *pids, int i)
 {
-	int		num_cmds;
-	int		**pipes;
-	pid_t	*pids;
+	perror("fork");
+	close_all_pipes(ctx->pipes, ctx->num_cmds - 1);
+	while (--i >= 0)
+		waitpid(pids[i], NULL, 0);
+	free(pids);
+	free_pipes(ctx->pipes, ctx->num_cmds - 1);
+	g_last_status = 1;
+	setup_interactive_signals();
+}
+
+static void	fork_and_execute(t_cmd *cmd_list, pid_t *pids,
+				t_pipe_ctx *ctx, char ***envp)
+{
 	t_cmd	*current;
 	int		i;
+
+	ignore_signals();
+	current = cmd_list;
+	i = -1;
+	while (++i < ctx->num_cmds && current)
+	{
+		pids[i] = fork();
+		if (pids[i] < 0)
+		{
+			handle_fork_error(ctx, pids, i);
+			return ;
+		}
+		else if (pids[i] == 0)
+		{
+			ctx->cmd_index = i;
+			execute_command_child(current, envp, ctx);
+		}
+		current = current->next;
+	}
+}
+
+static int	init_pipeline_resources(int num_cmds, int ***pipes, pid_t **pids)
+{
+	*pipes = create_pipes(num_cmds);
+	if (!*pipes)
+	{
+		perror("create_pipes");
+		return (0);
+	}
+	*pids = malloc(sizeof(pid_t) * num_cmds);
+	if (!*pids)
+	{
+		free_pipes(*pipes, num_cmds - 1);
+		perror("malloc");
+		return (0);
+	}
+	return (1);
+}
+
+void	execute_pipeline(t_cmd *cmd_list, char ***envp)
+{
+	int			num_cmds;
+	int			**pipes;
+	pid_t		*pids;
+	t_pipe_ctx	ctx;
 
 	if (!cmd_list || !envp)
 		return ;
@@ -57,52 +110,13 @@ void		execute_pipeline(t_cmd *cmd_list, char ***envp)
 		execute_single_command(cmd_list, envp);
 		return ;
 	}
-	pipes = create_pipes(num_cmds);
-	if (!pipes)
-	{
-		perror("create_pipes");
+	if (!init_pipeline_resources(num_cmds, &pipes, &pids))
 		return ;
-	}
-	pids = malloc(sizeof(pid_t) * num_cmds);
-	if (!pids)
-	{
-		free_pipes(pipes, num_cmds - 1);
-		perror("malloc");
-		return ;
-	}
-	ignore_signals();
-	current = cmd_list;
-	i = 0;
-	while (i < num_cmds && current)
-	{
-		pids[i] = fork();
-		if (pids[i] < 0)
-		{
-			perror("fork");
-			close_all_pipes(pipes, num_cmds - 1);
-			while (--i >= 0)
-				waitpid(pids[i], NULL, 0);
-			free(pids);
-			free_pipes(pipes, num_cmds - 1);
-			g_last_status = 1;
-			setup_interactive_signals();
-			return ;
-		}
-		else if (pids[i] == 0)
-			execute_command_child(current, envp, i, num_cmds, pipes);
-		current = current->next;
-		i++;
-	}
+	ctx = (t_pipe_ctx){0, num_cmds, pipes};
+	fork_and_execute(cmd_list, pids, &ctx, envp);
 	close_all_pipes(pipes, num_cmds - 1);
 	g_last_status = wait_for_children(pids, num_cmds);
 	setup_interactive_signals();
 	free(pids);
 	free_pipes(pipes, num_cmds - 1);
-}
-
-int	is_pipeline(t_cmd *cmd_list)
-{
-	if (!cmd_list)
-		return (0);
-	return (cmd_list->next != NULL);
 }

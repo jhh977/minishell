@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   remove_add_env.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 14:13:19 by aawad             #+#    #+#             */
-/*   Updated: 2025/12/26 15:56:48 by jhh              ###   ########.fr       */
+/*   Updated: 2025/12/26 20:59:38 by aawad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,33 +53,39 @@ char	**add_or_update_env(char **envp, char *key, char *value)
 	return (new_env);
 }
 
-char	**remove_env(char **envp, char *key)
+static char	**remove_env_at_index(char **envp, int index)
 {
-	int		index;
-	int		count;
 	char	**new_env;
+	int		i;
 	int		j;
 
-	index = find_env_index(envp, key);
-	if (index == -1)
-		return (envp);
-	count = 0;
-	while (envp[count])
-		count++;
-	new_env = malloc(sizeof(char *) * count);
+	i = 0;
+	while (envp[i])
+		i++;
+	new_env = malloc(sizeof(char *) * i);
 	if (!new_env)
 		return (envp);
+	i = 0;
 	j = 0;
-	count = 0;
-	while (envp[count])
+	while (envp[i])
 	{
-		if (count != index)
-			new_env[j++] = envp[count];
+		if (i != index)
+			new_env[j++] = envp[i];
 		else
-			free(envp[count]);
-		count++;
+			free(envp[i]);
+		i++;
 	}
 	new_env[j] = NULL;
 	free(envp);
 	return (new_env);
+}
+
+char	**remove_env(char **envp, char *key)
+{
+	int	index;
+
+	index = find_env_index(envp, key);
+	if (index == -1)
+		return (envp);
+	return (remove_env_at_index(envp, index));
 }

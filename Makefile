@@ -30,6 +30,7 @@ EXEC_SRCS = execution/built_in_command1.c \
             execution/handel_redirection1.c \
             execution/handel_redirection2.c \
             execution/handel_single_execution.c \
+            execution/execute_single_cmd.c \
             execution/pipline_command.c \
             execution/pipline_execute.c \
             execution/remove_add_env.c \

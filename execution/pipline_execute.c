@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   pipline_execute.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 11:15:57 by aawad             #+#    #+#             */
-/*   Updated: 2025/12/26 15:52:46 by jhh              ###   ########.fr       */
+/*   Updated: 2025/12/26 22:20:26 by aawad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	handle_child_status(int status)
+{
+	if (WIFEXITED(status))
+		return (WEXITSTATUS(status));
+	else if (WIFSIGNALED(status))
+		return (128 + WTERMSIG(status));
+	return (0);
+}
 
 int	wait_for_children(pid_t *pids, int num_cmds)
 {
@@ -18,8 +27,9 @@ int	wait_for_children(pid_t *pids, int num_cmds)
 	int	status;
 	int	last_status;
 
+	i = 0;
 	last_status = 0;
-	for (i = 0; i < num_cmds; i++)
+	while (i < num_cmds)
 	{
 		while (waitpid(pids[i], &status, 0) == -1)
 		{
@@ -30,28 +40,15 @@ int	wait_for_children(pid_t *pids, int num_cmds)
 				break ;
 			}
 		}
-		if (WIFEXITED(status))
-			last_status = WEXITSTATUS(status);
-		else if (WIFSIGNALED(status))
-			last_status = 128 + WTERMSIG(status);
+		last_status = handle_child_status(status);
+		i++;
 	}
 	return (last_status);
 }
 
-// static void	free_pipeline_resources(int **pipes, int num_pipes, pid_t *pids)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	if (pipes != NULL)
-// 	{
-// 		while (i < num_pipes)
-// 		{
-// 			free(pipes[i]);
-// 			i++;
-// 		}
-// 		free(pipes);
-// 	}
-// 	if (pids != NULL)
-// 		free(pids);
-// }
+int	is_pipeline(t_cmd *cmd_list)
+{
+	if (!cmd_list)
+		return (0);
+	return (cmd_list->next != NULL);
+}

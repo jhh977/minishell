@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 16:21:00 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/12/26 14:23:58 by jhh              ###   ########.fr       */
+/*   Updated: 2025/12/26 22:58:19 by aawad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,12 @@
 
 extern int	g_last_status;
 
-# define HEREDOC_INTERRUPTED -2
+typedef struct s_pipe_ctx
+{
+	int	cmd_index;
+	int	num_cmds;
+	int	**pipes;
+}	t_pipe_ctx;
 
 typedef enum e_token_type
 {
