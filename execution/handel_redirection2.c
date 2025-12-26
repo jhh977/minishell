@@ -6,7 +6,7 @@
 /*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 13:39:45 by aawad             #+#    #+#             */
-/*   Updated: 2025/11/24 13:39:46 by aawad            ###   ########.fr       */
+/*   Updated: 2025/12/25 00:00:00 by aawad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,14 @@ int	handle_redir_heredoc(char *delimiter)
 
 	fd = handle_heredoc(delimiter);
 	if (fd < 0)
+	{
 		return (-1);
+	}
 	if (dup2(fd, STDIN_FILENO) < 0)
 	{
 		perror("dup2");
 		close(fd);
+		g_last_status = 1;
 		return (-1);
 	}
 	close(fd);

@@ -6,7 +6,7 @@
 /*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 14:18:23 by aawad             #+#    #+#             */
-/*   Updated: 2025/11/24 14:18:37 by aawad            ###   ########.fr       */
+/*   Updated: 2025/12/25 00:00:00 by aawad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,13 @@ void	exec_child_process(t_cmd *cmd, char ***envp)
 
 	setup_child_signals();
 	if (handle_redirections(cmd) < 0)
-		exit(1);
+	{
+	    if (g_last_status != 130)
+	        g_last_status = 1;
+	    exit(g_last_status);
+	}
+
+
 	path = find_path(cmd->args[0], *envp);
 	if (!path)
 	{
@@ -76,16 +82,40 @@ void	execute_single_command(t_cmd *cmd, char ***envp)
 		handle_builtin_cmd(cmd, envp);
 		return ;
 	}
+
+	ignore_signals();
 	pid = fork();
+
 	if (pid == 0)
+	{
 		exec_child_process(cmd, envp);
+	}
 	else if (pid > 0)
 	{
-		waitpid(pid, &status, 0);
+		while (waitpid(pid, &status, 0) == -1)
+		{
+			if (errno != EINTR)
+			{
+				perror("waitpid");
+				g_last_status = 1;
+				break;
+			}
+		}
+		setup_interactive_signals();
+
 		if (WIFEXITED(status))
 			g_last_status = WEXITSTATUS(status);
 		else if (WIFSIGNALED(status))
-			g_last_status = 128 + WTERMSIG(status);
+		{
+		    int sig = WTERMSIG(status);
+		
+		    g_last_status = 128 + sig;
+		    if (sig == SIGINT)
+		        write(1, "\n", 1);
+		    else if (sig == SIGQUIT)
+		        write(2, "Quit (core dumped)\n", 20);
+		}
+
 	}
 	else
 	{

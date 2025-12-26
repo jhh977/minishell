@@ -6,7 +6,7 @@
 /*   By: aawad & jhijazi                             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 16:05:30 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/12/10 00:00:00 by aawad            ###   ########.fr       */
+/*   Updated: 2025/12/25 00:00:00 by aawad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,10 @@ static void	process_input(char *input, char ***envp)
 		free_tokens(tokens);
 		return ;
 	}
-	// if (is_pipeline(cmd_list))
-	// 	execute_pipeline(cmd_list, envp);
-	// else
-	// 	execute_single_command(cmd_list, envp);
+	if (is_pipeline(cmd_list))
+		execute_pipeline(cmd_list, envp);
+	else
+		execute_single_command(cmd_list, envp);
 	free_cmd_list(cmd_list);
 	free_tokens(tokens);
 }
@@ -93,9 +93,9 @@ int	main(int argc, char **argv, char **envp)
 		ft_putstr_fd("minishell: failed to initialize environment\n", 2);
 		return (1);
 	}
+	setup_interactive_signals();
 	while (1)
 	{
-		setup_interactive_signals();
 		input = readline("minishell$ ");
 		if (!input)
 		{
@@ -107,9 +107,9 @@ int	main(int argc, char **argv, char **envp)
 			add_history(input);
 			process_input(input, &my_envp);
 		}
+		setup_interactive_signals();
 		free(input);
 	}
 	free_envp(my_envp);
-
 	return (g_last_status);
 }

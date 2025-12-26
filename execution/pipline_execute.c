@@ -12,26 +12,29 @@
 
 #include "minishell.h"
 
-int	wait_for_children(pid_t *pids, int num_cmds)
+int wait_for_children(pid_t *pids, int num_cmds)
 {
-	int	i;
-	int	status;
-	int	last_status;
+    int i;
+    int status;
+    int last_status = 0;
 
-	i = 0;
-	last_status = 0;
-	while (i < num_cmds)
-	{
-		if (waitpid(pids[i], &status, 0) > 0)
-		{
-			if (WIFEXITED(status))
-				last_status = WEXITSTATUS(status);
-			else if (WIFSIGNALED(status))
-				last_status = 128 + WTERMSIG(status);
-		}
-		i++;
-	}
-	return (last_status);
+    for (i = 0; i < num_cmds; i++)
+    {
+        while (waitpid(pids[i], &status, 0) == -1)
+        {
+            if (errno != EINTR)
+            {
+                perror("waitpid");
+                last_status = 1;
+                break;
+            }
+        }
+        if (WIFEXITED(status))
+            last_status = WEXITSTATUS(status);
+        else if (WIFSIGNALED(status))
+            last_status = 128 + WTERMSIG(status);
+    }
+    return last_status;
 }
 
 // static void	free_pipeline_resources(int **pipes, int num_pipes, pid_t *pids)

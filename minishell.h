@@ -28,6 +28,8 @@
 # include "libft/libft.h"
 extern int	g_last_status;
 
+#define HEREDOC_INTERRUPTED -2
+
 typedef enum e_token_type
 {
 	WORD,
@@ -122,7 +124,6 @@ int		handle_redir_append(char *file);
 int		handle_redir_heredoc(char *delimiter);
 int		open_fd(char *file, int flags, int mode);
 int		dup_and_close(int fd, int target);
-int		handle_redir_heredoc(char *delimiter);
 int		handle_heredoc(char *delimiter);
 // FD management
 int		*save_std_fds(void);
@@ -157,5 +158,9 @@ void	add_arg(t_cmd *cmd, char *value);
 //Signals
 void	setup_interactive_signals(void);
 void	setup_child_signals(void);
+void	setup_heredoc_signals(void);
+void	ignore_signals(void);
+void	sigint_handler(int sig);
+void	sigint_heredoc_handler(int sig);
 
 #endif

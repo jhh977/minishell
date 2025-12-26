@@ -1,6 +1,5 @@
 #include "minishell.h"
 
-
 static char	*create_heredoc_filename(void)
 {
 	static int	heredoc_count = 0;
@@ -20,7 +19,6 @@ static char	*create_heredoc_filename(void)
 	return (filename);
 }
 
-
 static int	read_heredoc_lines(int fd, char *delimiter)
 {
 	char	*line;
@@ -32,6 +30,8 @@ static int	read_heredoc_lines(int fd, char *delimiter)
 		line = readline("> ");
 		if (!line)
 		{
+			if (g_last_status == 130)  // Interrupted by Ctrl+C
+				return (-1);
 			ft_putstr_fd("minishell: warning: heredoc delimited by EOF\n", 2);
 			break ;
 		}
@@ -47,7 +47,6 @@ static int	read_heredoc_lines(int fd, char *delimiter)
 	}
 	return (0);
 }
-
 
 int	handle_heredoc(char *delimiter)
 {
@@ -67,7 +66,16 @@ int	handle_heredoc(char *delimiter)
 		free(filename);
 		return (-1);
 	}
-	read_heredoc_lines(fd, delimiter);
+	setup_heredoc_signals();
+	if (read_heredoc_lines(fd, delimiter) < 0)
+	{
+		close(fd);
+		unlink(filename);
+		free(filename);
+		setup_interactive_signals();
+		return (-1);
+	}
+	setup_interactive_signals();
 	close(fd);
 	read_fd = open(filename, O_RDONLY);
 	unlink(filename);
@@ -75,6 +83,7 @@ int	handle_heredoc(char *delimiter)
 	if (read_fd < 0)
 	{
 		perror("heredoc");
+		g_last_status = 1;
 		return (-1);
 	}
 	return (read_fd);

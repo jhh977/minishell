@@ -6,7 +6,7 @@
 /*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 14:03:15 by aawad             #+#    #+#             */
-/*   Updated: 2025/12/08 20:03:40 by aawad            ###   ########.fr       */
+/*   Updated: 2025/12/25 00:00:00 by aawad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static void	execute_command_child(t_cmd *cmd, char ***envp,
 	setup_pipe_fds(cmd_index, num_cmds, pipes);
 	if (handle_redirections(cmd) < 0)
 		exit(1);
+	setup_child_signals();
 	if (built_in(cmd->args[0]))
 	{
 		execute_builtin(cmd, envp);
@@ -40,7 +41,7 @@ static void	execute_command_child(t_cmd *cmd, char ***envp,
 	exit(126);
 }
 
-void	execute_pipeline(t_cmd *cmd_list, char ***envp)
+void		execute_pipeline(t_cmd *cmd_list, char ***envp)
 {
 	int		num_cmds;
 	int		**pipes;
@@ -69,6 +70,7 @@ void	execute_pipeline(t_cmd *cmd_list, char ***envp)
 		perror("malloc");
 		return ;
 	}
+	ignore_signals();
 	current = cmd_list;
 	i = 0;
 	while (i < num_cmds && current)
@@ -83,6 +85,7 @@ void	execute_pipeline(t_cmd *cmd_list, char ***envp)
 			free(pids);
 			free_pipes(pipes, num_cmds - 1);
 			g_last_status = 1;
+			setup_interactive_signals();
 			return ;
 		}
 		else if (pids[i] == 0)
@@ -92,6 +95,7 @@ void	execute_pipeline(t_cmd *cmd_list, char ***envp)
 	}
 	close_all_pipes(pipes, num_cmds - 1);
 	g_last_status = wait_for_children(pids, num_cmds);
+	setup_interactive_signals();
 	free(pids);
 	free_pipes(pipes, num_cmds - 1);
 }
