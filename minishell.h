@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aawad & jhijazi                             +#+  +:+       +#+        */
+/*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 16:21:00 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/12/10 00:00:00 by aawad            ###   ########.fr       */
+/*   Updated: 2025/12/26 14:23:58 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,10 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "libft/libft.h"
+
 extern int	g_last_status;
 
-#define HEREDOC_INTERRUPTED -2
+# define HEREDOC_INTERRUPTED -2
 
 typedef enum e_token_type
 {
@@ -76,7 +77,7 @@ typedef struct s_cmd
 	int				arg_cap;
 	t_redir			redir_in;
 	t_redir			redir_out;
-	t_redir         *redirs;
+	t_redir			*redirs;
 	int				pipe_fd[2];
 	struct s_cmd	*next;
 	struct s_cmd	*prev;

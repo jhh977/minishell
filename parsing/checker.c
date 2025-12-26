@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jhijazi <jhijazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/26 15:15:28 by jhh               #+#    #+#             */
-/*   Updated: 2025/12/26 15:15:29 by jhh              ###   ########.fr       */
+/*   Created: 2025/10/09 19:06:51 by jhijazi           #+#    #+#             */
+/*   Updated: 2025/10/11 15:20:28 by jhijazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+int	check_pipe_end(char *a)
 {
-	size_t	i;
+	int	size;
 
-	i = 0;
-	while (s1[i] && s2[i] && s1[i] == s2[i])
-		i++;
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	size = ft_strlen(a);
+	if (a[0] == '|' || a[size - 1] == '|')
+		return (0);
+	return (1);
 }

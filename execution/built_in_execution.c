@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in_execution.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 16:57:42 by aawad             #+#    #+#             */
-/*   Updated: 2025/11/24 13:16:08 by aawad            ###   ########.fr       */
+/*   Updated: 2025/12/26 15:24:53 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	built_in(char *cmd)
 void	execute_builtin(t_cmd *cmd, char ***envp)
 {
 	if (!cmd || !cmd->args || !cmd->args[0])
-		return;
+		return ;
 	if (ft_strcmp(cmd->args[0], "cd") == 0)
 		built_in_cd(cmd, *envp);
 	else if (ft_strcmp(cmd->args[0], "export") == 0)

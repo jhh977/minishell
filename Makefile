@@ -5,10 +5,19 @@ NAME    = minishell
 HEAD    = minishell.h
 
 # Parsing & Tokenization (current directory)
-PARSE_SRCS = tokenization.c token.c tokenization_quotes.c \
-             tokenization_helper.c local_var_helper.c add_word.c \
-             parse_checker.c parser.c cmd_helper.c redirs_handler.c \
-             free_functions_parsing.c signals.c
+PARSE_SRCS =parsing/tokenization.c \
+            parsing/token.c\
+            parsing/tokenization_quotes.c\
+            parsing/tokenization_helper.c\
+            parsing/local_var_helper.c\
+            parsing/add_word.c \
+            parsing/parse_checker.c\
+            parsing/parser.c\
+            parsing/cmd_helper.c\
+            parsing/redirs_handler.c \
+            parsing/free_functions_parsing.c\
+            parsing/signals.c\
+            parsing/signals_helper.c
 
 # Execution & Built-ins (in execution/ directory)
 EXEC_SRCS = execution/built_in_command1.c \

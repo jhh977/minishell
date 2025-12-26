@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aawad & jhijazi                             +#+  +:+       +#+        */
+/*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/06 16:05:30 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/12/25 00:00:00 by aawad            ###   ########.fr       */
+/*   Created: 2025/12/26 13:57:06 by jhh               #+#    #+#             */
+/*   Updated: 2025/12/26 14:22:08 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ static void	process_input(char *input, char ***envp)
 	t_token	*tokens;
 	t_cmd	*cmd_list;
 
+	add_history(input);
 	if (!input || !*input)
 		return ;
 	tokens = tokenization(input, envp);
@@ -80,6 +81,17 @@ static void	process_input(char *input, char ***envp)
 	free_tokens(tokens);
 }
 
+static int	envp_check(char **my_envp)
+{
+	if (!my_envp)
+	{
+		ft_putstr_fd("minishell: failed to initialize environment\n", 2);
+		g_last_status = 1;
+		return (0);
+	}
+	return (1);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char	*input;
@@ -88,11 +100,8 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	my_envp = copy_envp(envp);
-	if (!my_envp)
-	{
-		ft_putstr_fd("minishell: failed to initialize environment\n", 2);
-		return (1);
-	}
+	if (!envp_check(envp))
+		return (0);
 	setup_interactive_signals();
 	while (1)
 	{
@@ -103,10 +112,7 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		}
 		if (*input)
-		{
-			add_history(input);
 			process_input(input, &my_envp);
-		}
 		setup_interactive_signals();
 		free(input);
 	}

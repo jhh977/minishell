@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handel_redirection.c                               :+:      :+:    :+:   */
+/*   handel_redirection1.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 13:40:49 by aawad             #+#    #+#             */
-/*   Updated: 2025/12/02 15:55:00 by aawad            ###   ########.fr       */
+/*   Updated: 2025/12/26 15:19:23 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,10 @@ static int	handle_input_redirs(t_cmd *cmd)
 {
 	if (!cmd->redir_in.filename)
 		return (0);
-	
 	if (cmd->redir_in.type == REDIR_IN)
 		return (handle_redir_in(cmd->redir_in.filename));
 	else if (cmd->redir_in.type == REDIR_HEREDOC)
 		return (handle_redir_heredoc(cmd->redir_in.filename));
-	
 	return (0);
 }
 
@@ -54,12 +52,10 @@ static int	handle_output_redirs(t_cmd *cmd)
 {
 	if (!cmd->redir_out.filename)
 		return (0);
-	
 	if (cmd->redir_out.type == REDIR_OUT)
 		return (handle_redir_out(cmd->redir_out.filename));
 	else if (cmd->redir_out.type == REDIR_APPEND)
 		return (handle_redir_append(cmd->redir_out.filename));
-	
 	return (0);
 }
 
