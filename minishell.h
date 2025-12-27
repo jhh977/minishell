@@ -6,7 +6,7 @@
 /*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 16:21:00 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/12/26 22:58:19 by aawad            ###   ########.fr       */
+/*   Updated: 2025/12/27 08:45:49 by aawad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,10 +124,8 @@ void	print_export(char **envp);
 
 // Redirections
 int		handle_redirections(t_cmd *cmd);
-int		handle_redir_in(char *file);
-int		handle_redir_out(char *file);
-int		handle_redir_append(char *file);
-int		handle_redir_heredoc(char *delimiter);
+int		handle_input_redirs(t_cmd *cmd);
+int		handle_output_redirs(t_cmd *cmd);
 int		open_fd(char *file, int flags, int mode);
 int		dup_and_close(int fd, int target);
 int		handle_heredoc(char *delimiter);

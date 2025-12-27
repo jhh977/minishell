@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handel_redirection1.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 13:40:49 by aawad             #+#    #+#             */
-/*   Updated: 2025/12/26 15:19:23 by jhh              ###   ########.fr       */
+/*   Updated: 2025/12/27 08:38:56 by aawad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,35 +37,46 @@ int	dup_and_close(int fd, int target)
 	return (0);
 }
 
-static int	handle_input_redirs(t_cmd *cmd)
+static int	process_input_redir(t_redir *redir, int *last_fd)
 {
-	if (!cmd->redir_in.filename)
-		return (0);
-	if (cmd->redir_in.type == REDIR_IN)
-		return (handle_redir_in(cmd->redir_in.filename));
-	else if (cmd->redir_in.type == REDIR_HEREDOC)
-		return (handle_redir_heredoc(cmd->redir_in.filename));
+	int	fd;
+
+	fd = -1;
+	if (redir->type == REDIR_IN)
+		fd = open_fd(redir->filename, O_RDONLY, 0);
+	else if (redir->type == REDIR_HEREDOC)
+		fd = handle_heredoc(redir->filename);
+	if (fd < 0)
+		return (-1);
+	if (*last_fd >= 0)
+		close(*last_fd);
+	*last_fd = fd;
 	return (0);
 }
 
-static int	handle_output_redirs(t_cmd *cmd)
+int	handle_input_redirs(t_cmd *cmd)
 {
-	if (!cmd->redir_out.filename)
-		return (0);
-	if (cmd->redir_out.type == REDIR_OUT)
-		return (handle_redir_out(cmd->redir_out.filename));
-	else if (cmd->redir_out.type == REDIR_APPEND)
-		return (handle_redir_append(cmd->redir_out.filename));
-	return (0);
-}
+	t_redir	*current;
+	int		last_fd;
 
-int	handle_redirections(t_cmd *cmd)
-{
-	if (!cmd)
+	if (!cmd->redirs)
 		return (0);
-	if (handle_input_redirs(cmd) < 0)
-		return (-1);
-	if (handle_output_redirs(cmd) < 0)
-		return (-1);
+	last_fd = -1;
+	current = cmd->redirs;
+	while (current)
+	{
+		if (current->type == REDIR_IN || current->type == REDIR_HEREDOC)
+		{
+			if (process_input_redir(current, &last_fd) < 0)
+			{
+				if (last_fd >= 0)
+					close(last_fd);
+				return (-1);
+			}
+		}
+		current = current->next;
+	}
+	if (last_fd >= 0)
+		return (dup_and_close(last_fd, STDIN_FILENO));
 	return (0);
 }
