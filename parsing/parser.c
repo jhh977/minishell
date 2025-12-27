@@ -6,7 +6,7 @@
 /*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 18:56:03 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/12/26 14:56:33 by jhh              ###   ########.fr       */
+/*   Updated: 2025/12/27 19:52:34 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,27 @@ void	add_arg(t_cmd *cmd, char *value)
 	cmd->args[cmd->arg_count] = NULL;
 }
 
-static int	check_parse_helper(t_cmd *cmd, t_token *tokens)
+static t_cmd	*parse_command(t_token **tokens)
 {
-	if (!handle_redir(&tokens, cmd))
+	t_cmd	*cmd;
+
+	cmd = create_cmd();
+	while (*tokens && (*tokens)->type != PIPE)
 	{
-		free_cmd_list(cmd);
-		return (1);
+		if (is_redir(*tokens))
+		{
+			if (!handle_redir(tokens, cmd))
+			{
+				free_cmd_list(cmd);
+				return (NULL);
+			}
+		}
+		else if ((*tokens)->type == WORD)
+			add_arg(cmd, (*tokens)->value);
+		if (*tokens)
+			*tokens = (*tokens)->next;
 	}
-	return (0);
+	return (cmd);
 }
 
 t_cmd	*check_parse(t_token *tokens)
@@ -57,18 +70,7 @@ t_cmd	*check_parse(t_token *tokens)
 	cmd_list = NULL;
 	while (tokens != NULL)
 	{
-		cmd = create_cmd();
-		while (tokens && tokens->type != PIPE)
-		{
-			if (is_redir(tokens))
-			{
-				if (check_parse_helper(cmd, tokens))
-					return (cmd_list);
-			}
-			else if (tokens->type == WORD)
-				add_arg(cmd, tokens->value);
-			tokens = tokens->next;
-		}
+		cmd = parse_command(&tokens);
 		add_cmd_to_list(&cmd_list, cmd);
 		if (tokens && tokens->type == PIPE)
 			tokens = tokens->next;
