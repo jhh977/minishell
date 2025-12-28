@@ -6,7 +6,7 @@
 /*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 18:56:03 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/12/28 18:45:39 by jhh              ###   ########.fr       */
+/*   Updated: 2025/12/28 19:59:05 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,11 @@ t_cmd	*check_parse(t_token *tokens)
 	while (tokens != NULL)
 	{
 		cmd = parse_command(&tokens);
+		if (!cmd)
+		{
+			free_cmd_list(cmd_list);
+			return (NULL);
+		}
 		add_cmd_to_list(&cmd_list, cmd);
 		if (tokens && tokens->type == PIPE)
 			tokens = tokens->next;
