@@ -6,7 +6,7 @@
 /*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 14:13:27 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/12/26 15:03:31 by jhh              ###   ########.fr       */
+/*   Updated: 2025/12/28 19:15:53 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ t_token	*tokenization(char *input, char ***envp)
 	}
 	if (t.squote || t.dquote)
 	{
-		printf("minishell: syntax error: unclosed quote\n");
+		ft_putstr_error("minishell: syntax error: unclosed quote\n");
+		g_last_status = 1;
 		free_tokens(t.head);
 		return (NULL);
 	}

@@ -6,7 +6,7 @@
 /*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 14:49:26 by jihad             #+#    #+#             */
-/*   Updated: 2025/12/26 14:51:20 by jhh              ###   ########.fr       */
+/*   Updated: 2025/12/28 18:45:38 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static void	add_redir_to_list(t_cmd *cmd, t_redir redir)
 	if (!new_node)
 	{
 		ft_putstr_error("Error: Failed to create new node\n");
+		g_last_status = 1;
 		return ;
 	}
 	new_node->type = redir.type;
@@ -70,6 +71,7 @@ int	handle_redir(t_token **token, t_cmd *cmd)
 	if (!(*token)->next)
 	{
 		ft_putstr_error("bash: syntax error near unexpected token `newline'\n");
+		g_last_status = 1;
 		return (0);
 	}
 	else if ((*token)->type == REDIR_IN)

@@ -6,7 +6,7 @@
 /*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 18:56:03 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/12/27 19:52:34 by jhh              ###   ########.fr       */
+/*   Updated: 2025/12/28 18:45:39 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	add_arg(t_cmd *cmd, char *value)
 		if (!new_args)
 		{
 			ft_putstr_error("Error: Failed to create args array\n");
+		g_last_status = 1;
 			return ;
 		}
 		cmd->args = new_args;
@@ -31,6 +32,7 @@ void	add_arg(t_cmd *cmd, char *value)
 	if (!cmd->args[cmd->arg_count])
 	{
 		ft_putstr_error("Error: Failed to set Args new value\n");
+		g_last_status = 1;
 		return ;
 	}
 	cmd->arg_count++;

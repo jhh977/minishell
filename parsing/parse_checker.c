@@ -6,7 +6,7 @@
 /*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 18:09:31 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/12/26 14:28:05 by jhh              ###   ########.fr       */
+/*   Updated: 2025/12/28 18:45:01 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,13 @@ static int	check_pipe(t_token *tok)
 	if (!tok->next)
 	{
 		ft_putstr_error("Error: Pipe must be followed by a command\n");
+		g_last_status = 1;
 		return (0);
 	}
 	if (tok->next->type == PIPE)
 	{
 		ft_putstr_error("Error: Consecutive pipes\n");
+		g_last_status = 1;
 		return (0);
 	}
 	return (1);
@@ -44,12 +46,14 @@ int	error_check(t_token *tok)
 	{
 		ft_putstr_error(
 			"bash: syntax error near unexpected token `|'\n");
+		g_last_status = 1;
 		return (0);
 	}
 	if (tok->next && is_redir(tok->next))
 	{
 		ft_putstr_error(
 			"bash: syntax error near unexpected token `newline'\n");
+		g_last_status = 1;
 		return (0);
 	}
 	return (1);
@@ -60,6 +64,7 @@ int	checker(t_token *tok)
 	if (tok->type == PIPE)
 	{
 		ft_putstr_error("Pipe at the beginning of the prompt\n");
+		g_last_status = 1;
 		return (0);
 	}
 	while (tok)
