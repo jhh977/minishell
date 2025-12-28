@@ -6,7 +6,7 @@
 /*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 13:57:06 by jhh               #+#    #+#             */
-/*   Updated: 2025/12/28 20:00:12 by jhh              ###   ########.fr       */
+/*   Updated: 2025/12/28 22:58:21 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,10 @@ static void	process_input(char *input, char ***envp)
 		free_tokens(tokens);
 		return ;
 	}
-	// if (is_pipeline(cmd_list))
-	// 	execute_pipeline(cmd_list, envp);
-	// else
-	// 	execute_single_command(cmd_list, envp);
+	if (is_pipeline(cmd_list))
+		execute_pipeline(cmd_list, envp);
+	else
+		execute_single_command(cmd_list, envp);
 	free_cmd_list(cmd_list);
 	free_tokens(tokens);
 }
