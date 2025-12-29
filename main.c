@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 13:57:06 by jhh               #+#    #+#             */
-/*   Updated: 2025/12/29 15:48:34 by jhh              ###   ########.fr       */
+/*   Updated: 2025/12/29 21:49:22 by aawad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 
 int	g_last_status = 0;
 
@@ -80,17 +81,6 @@ static void	process_input(char *input, char ***envp)
 	free_cmd_list(cmd_list);
 }
 
-static int	envp_check(char **my_envp)
-{
-	if (!my_envp)
-	{
-		ft_putstr_fd("minishell: failed to initialize environment\n", 2);
-		g_last_status = 1;
-		return (0);
-	}
-	return (1);
-}
-
 int	main(int argc, char **argv, char **envp)
 {
 	char	*input;
@@ -99,8 +89,11 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	my_envp = copy_envp(envp);
-	if (!envp_check(envp))
-		return (0);
+	if (!my_envp)
+	{
+		ft_putstr_fd("minishell: failed to initialize environment\n", 2);
+		return (1);
+	}
 	setup_interactive_signals();
 	while (1)
 	{
@@ -116,5 +109,6 @@ int	main(int argc, char **argv, char **envp)
 		free(input);
 	}
 	free_envp(my_envp);
+	rl_clear_history();
 	return (g_last_status);
 }

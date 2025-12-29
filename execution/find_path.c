@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 15:53:41 by jhh               #+#    #+#             */
-/*   Updated: 2025/12/29 16:32:43 by jhh              ###   ########.fr       */
+/*   Updated: 2025/12/29 21:37:44 by aawad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,9 @@ char	*join_path(char *dir, char *cmd)
 	int		len_dir;
 	int		len_cmd;
 
-	if(!cmd || !dir)
+	if (!cmd || !dir)  // ✅ ADD THIS CHECK
 		return (NULL);
+
 	len_cmd = ft_strlen(cmd);
 	len_dir = ft_strlen(dir);
 	full = malloc(len_dir + len_cmd + 2);
@@ -42,7 +43,6 @@ char	*join_path(char *dir, char *cmd)
 	ft_strcpy(full + len_dir + 1, cmd);
 	return (full);
 }
-
 static	char	*check_direct_path(char *cmd)
 {
 	if (!cmd || cmd[0] == '\0')

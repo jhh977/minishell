@@ -6,7 +6,7 @@
 /*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 20:33:29 by aawad             #+#    #+#             */
-/*   Updated: 2025/12/26 20:43:11 by aawad            ###   ########.fr       */
+/*   Updated: 2025/12/29 21:48:19 by aawad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,28 @@ static void	handle_builtin_cmd(t_cmd *cmd, char ***envp)
 void	execute_single_command(t_cmd *cmd, char ***envp)
 {
 	pid_t	pid;
+	int		*saved;
 
+	if (!cmd || !cmd->args || !cmd->args[0])
+	{
+		if (cmd && cmd->redirs)
+		{
+			saved = save_std_fds();
+			if (!saved)
+			{
+				g_last_status = 1;
+				return ;
+			}
+			if (handle_redirections(cmd) < 0)
+				g_last_status = 1;
+			else
+				g_last_status = 0;
+			restore_std_fds(saved);
+			return ;
+		}
+		g_last_status = 0;
+		return ;
+	}
 	if (built_in(cmd->args[0]))
 	{
 		handle_builtin_cmd(cmd, envp);
