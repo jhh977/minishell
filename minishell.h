@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 16:21:00 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/12/29 17:23:59 by jhh              ###   ########.fr       */
+/*   Updated: 2025/12/29 21:45:27 by aawad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,7 @@ char	*find_path(char *cmd, char **envp);
 char	*get_env_value(const char *name, char **envp);
 void	free_split(char **split);
 void	exec_child_process(t_cmd *cmd, char ***envp);
-void	free_exit(t_cmd *cmd, char ***envp);
-void	free_exit_and_pipes(t_cmd *cmd, char ***envp, t_pipe_ctx *ctx, pid_t *pids);
-
+void	free_child_pipeline(t_pipe_ctx *ctx, pid_t *pids);
 
 // Pipeline
 int		count_commands(t_cmd *cmd_list);
