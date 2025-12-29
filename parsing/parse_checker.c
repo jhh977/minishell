@@ -6,7 +6,7 @@
 /*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 18:09:31 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/12/28 18:45:01 by jhh              ###   ########.fr       */
+/*   Updated: 2025/12/29 14:08:49 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,22 @@ static int	check_pipe(t_token *tok)
 	return (1);
 }
 
+static void	ft_print_redir_error(t_token *tok)
+{
+	if (tok->type == REDIR_IN)
+		ft_putstr_error(
+			"bash: syntax error near unexpected token `<'\n");
+	else if (tok->type == REDIR_OUT)
+		ft_putstr_error(
+			"bash: syntax error near unexpected token `>'\n");
+	else if (tok->type == REDIR_HEREDOC)
+		ft_putstr_error(
+			"bash: syntax error near unexpected token `<<'\n");
+	else if (tok->type == REDIR_APPEND)
+		ft_putstr_error(
+			"bash: syntax error near unexpected token `>>'\n");
+}
+
 int	error_check(t_token *tok)
 {
 	if (tok->next && tok->next->type == PIPE)
@@ -51,8 +67,7 @@ int	error_check(t_token *tok)
 	}
 	if (tok->next && is_redir(tok->next))
 	{
-		ft_putstr_error(
-			"bash: syntax error near unexpected token `newline'\n");
+		ft_print_redir_error(tok->next);
 		g_last_status = 1;
 		return (0);
 	}
