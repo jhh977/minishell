@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   wait_execute_pipeline.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 14:03:15 by aawad             #+#    #+#             */
-/*   Updated: 2025/12/26 22:20:10 by aawad            ###   ########.fr       */
+/*   Updated: 2025/12/29 17:26:13 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	execute_command_child(t_cmd *cmd, char ***envp, t_pipe_ctx *ctx)
+static void	execute_command_child(t_cmd *cmd, char ***envp, t_pipe_ctx *ctx, pid_t *pids)
 {
 	char	*path;
 
@@ -23,6 +23,7 @@ static void	execute_command_child(t_cmd *cmd, char ***envp, t_pipe_ctx *ctx)
 	if (built_in(cmd->args[0]))
 	{
 		execute_builtin(cmd, envp);
+		free_exit_and_pipes(cmd, envp, ctx, pids);
 		exit(g_last_status);
 	}
 	path = find_path(cmd->args[0], *envp);
@@ -31,10 +32,12 @@ static void	execute_command_child(t_cmd *cmd, char ***envp, t_pipe_ctx *ctx)
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		ft_putstr_fd(cmd->args[0], STDERR_FILENO);
 		ft_putstr_fd(": command not found\n", STDERR_FILENO);
+		free_exit_and_pipes(cmd, envp, ctx, pids);
 		exit(127);
 	}
 	execve(path, cmd->args, *envp);
 	perror("execve");
+	free_exit_and_pipes(cmd, envp, ctx, pids);
 	free(path);
 	exit(126);
 }
@@ -71,7 +74,7 @@ static void	fork_and_execute(t_cmd *cmd_list, pid_t *pids,
 		else if (pids[i] == 0)
 		{
 			ctx->cmd_index = i;
-			execute_command_child(current, envp, ctx);
+			execute_command_child(current, envp, ctx, pids);
 		}
 		current = current->next;
 	}

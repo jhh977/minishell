@@ -6,7 +6,7 @@
 /*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 18:56:03 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/12/28 20:08:42 by jhh              ###   ########.fr       */
+/*   Updated: 2025/12/29 15:21:45 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	add_arg(t_cmd *cmd, char *value)
 {
 	char	**new_args;
 
-	if (cmd->arg_count >= cmd->arg_cap)
+	if (cmd->arg_count >= cmd->arg_cap - 1)
 	{
 		cmd->arg_cap *= 2;
 		new_args = ft_realloc(cmd->args, sizeof(char *) * cmd->arg_cap);

@@ -6,7 +6,7 @@
 /*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 15:53:41 by jhh               #+#    #+#             */
-/*   Updated: 2025/12/26 15:53:49 by jhh              ###   ########.fr       */
+/*   Updated: 2025/12/29 16:32:43 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ char	*join_path(char *dir, char *cmd)
 	int		len_dir;
 	int		len_cmd;
 
+	if(!cmd || !dir)
+		return (NULL);
 	len_cmd = ft_strlen(cmd);
 	len_dir = ft_strlen(dir);
 	full = malloc(len_dir + len_cmd + 2);
@@ -43,6 +45,8 @@ char	*join_path(char *dir, char *cmd)
 
 static	char	*check_direct_path(char *cmd)
 {
+	if (!cmd || cmd[0] == '\0')
+		return (NULL);
 	if (ft_strchr(cmd, '/'))
 	{
 		if (access(cmd, X_OK) == 0)
@@ -80,6 +84,11 @@ char	*find_path(char *cmd, char **envp)
 	while (paths[j])
 	{
 		full = join_path(paths[j], cmd);
+		if (!full)
+		{
+			free_split(paths);
+			return (NULL);
+		}
 		if (access(full, X_OK) == 0)
 			return (free_split(paths), full);
 		free(full);

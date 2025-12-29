@@ -6,11 +6,23 @@
 /*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 20:56:46 by jihad             #+#    #+#             */
-/*   Updated: 2025/12/26 13:54:56 by jhh              ###   ########.fr       */
+/*   Updated: 2025/12/29 16:24:59 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// static void null_args(char **args, int arg_cap)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (i < arg_cap)
+// 	{
+// 		args[i] = NULL;
+// 		i++;
+// 	}
+// }
 
 t_cmd	*create_cmd(void)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handel_single_execution.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 14:18:23 by aawad             #+#    #+#             */
-/*   Updated: 2025/12/26 20:43:05 by aawad            ###   ########.fr       */
+/*   Updated: 2025/12/29 17:18:02 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	exec_child_process(t_cmd *cmd, char ***envp)
 	{
 		if (g_last_status != 130)
 			g_last_status = 1;
+		free_exit(cmd, envp);
 		exit(g_last_status);
 	}
 	path = find_path(cmd->args[0], *envp);
@@ -45,10 +46,12 @@ void	exec_child_process(t_cmd *cmd, char ***envp)
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		ft_putstr_fd(cmd->args[0], STDERR_FILENO);
 		ft_putstr_fd(": command not found\n", STDERR_FILENO);
+		free_exit(cmd, envp);
 		exit(127);
 	}
 	execve(path, cmd->args, *envp);
 	perror("execve");
+	free_exit(cmd, envp);
 	free(path);
 	exit(126);
 }

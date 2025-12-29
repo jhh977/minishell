@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 16:21:00 by jhijazi           #+#    #+#             */
-/*   Updated: 2025/12/27 08:45:49 by aawad            ###   ########.fr       */
+/*   Updated: 2025/12/29 17:23:59 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,9 @@ char	*find_path(char *cmd, char **envp);
 char	*get_env_value(const char *name, char **envp);
 void	free_split(char **split);
 void	exec_child_process(t_cmd *cmd, char ***envp);
+void	free_exit(t_cmd *cmd, char ***envp);
+void	free_exit_and_pipes(t_cmd *cmd, char ***envp, t_pipe_ctx *ctx, pid_t *pids);
+
 
 // Pipeline
 int		count_commands(t_cmd *cmd_list);
@@ -121,6 +124,7 @@ char	**add_or_update_env(char **envp, char *key, char *value);
 char	**remove_env(char **envp, char *key);
 int		find_env_index(char **envp, char *key);
 void	print_export(char **envp);
+void	free_envp(char **envp);
 
 // Redirections
 int		handle_redirections(t_cmd *cmd);

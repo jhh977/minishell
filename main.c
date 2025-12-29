@@ -6,7 +6,7 @@
 /*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 13:57:06 by jhh               #+#    #+#             */
-/*   Updated: 2025/12/28 22:58:21 by jhh              ###   ########.fr       */
+/*   Updated: 2025/12/29 15:48:34 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static char	**copy_envp(char **envp)
 	return (new_envp);
 }
 
-static void	free_envp(char **envp)
+void	free_envp(char **envp)
 {
 	int	i;
 
@@ -68,9 +68,9 @@ static void	process_input(char *input, char ***envp)
 	if (!tokens)
 		return ;
 	cmd_list = check_parse(tokens);
+	free_tokens(tokens);
 	if (!cmd_list)
 	{
-		free_tokens(tokens);
 		return ;
 	}
 	if (is_pipeline(cmd_list))
@@ -78,7 +78,6 @@ static void	process_input(char *input, char ***envp)
 	else
 		execute_single_command(cmd_list, envp);
 	free_cmd_list(cmd_list);
-	free_tokens(tokens);
 }
 
 static int	envp_check(char **my_envp)
