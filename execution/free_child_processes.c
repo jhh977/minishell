@@ -6,7 +6,7 @@
 /*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 17:14:24 by jhh               #+#    #+#             */
-/*   Updated: 2025/12/29 21:46:04 by aawad            ###   ########.fr       */
+/*   Updated: 2025/12/30 10:15:52 by aawad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,4 +18,16 @@ void	free_child_pipeline(t_pipe_ctx *ctx, pid_t *pids)
 		free_pipes(ctx->pipes, ctx->num_cmds - 1);
 	if (pids)
 		free(pids);
+}
+
+void	free_split(char **arr)
+{
+	int	i;
+
+	i = 0;
+	if (!arr)
+		return ;
+	while (arr[i])
+		free(arr[i++]);
+	free(arr);
 }

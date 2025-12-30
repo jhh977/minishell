@@ -6,23 +6,11 @@
 /*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 15:53:41 by jhh               #+#    #+#             */
-/*   Updated: 2025/12/29 21:37:44 by aawad            ###   ########.fr       */
+/*   Updated: 2025/12/30 10:15:43 by aawad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	free_split(char **arr)
-{
-	int	i;
-
-	i = 0;
-	if (!arr)
-		return ;
-	while (arr[i])
-		free(arr[i++]);
-	free(arr);
-}
 
 char	*join_path(char *dir, char *cmd)
 {
@@ -30,9 +18,8 @@ char	*join_path(char *dir, char *cmd)
 	int		len_dir;
 	int		len_cmd;
 
-	if (!cmd || !dir)  // ✅ ADD THIS CHECK
+	if (!cmd || !dir)
 		return (NULL);
-
 	len_cmd = ft_strlen(cmd);
 	len_dir = ft_strlen(dir);
 	full = malloc(len_dir + len_cmd + 2);
@@ -43,7 +30,8 @@ char	*join_path(char *dir, char *cmd)
 	ft_strcpy(full + len_dir + 1, cmd);
 	return (full);
 }
-static	char	*check_direct_path(char *cmd)
+
+static char	*check_direct_path(char *cmd)
 {
 	if (!cmd || cmd[0] == '\0')
 		return (NULL);
@@ -68,18 +56,11 @@ static char	**get_paths(char **envp)
 	return (ft_split(envp[i] + 5, ':'));
 }
 
-char	*find_path(char *cmd, char **envp)
+static char	*search_in_paths(char **paths, char *cmd)
 {
-	char	**paths;
 	char	*full;
 	int		j;
 
-	full = check_direct_path(cmd);
-	if (full)
-		return (full);
-	paths = get_paths(envp);
-	if (!paths)
-		return (NULL);
 	j = 0;
 	while (paths[j])
 	{
@@ -94,6 +75,22 @@ char	*find_path(char *cmd, char **envp)
 		free(full);
 		j++;
 	}
-	free_split(paths);
 	return (NULL);
+}
+
+char	*find_path(char *cmd, char **envp)
+{
+	char	**paths;
+	char	*full;
+
+	full = check_direct_path(cmd);
+	if (full)
+		return (full);
+	paths = get_paths(envp);
+	if (!paths)
+		return (NULL);
+	full = search_in_paths(paths, cmd);
+	if (!full)
+		free_split(paths);
+	return (full);
 }
