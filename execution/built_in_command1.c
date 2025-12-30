@@ -6,7 +6,7 @@
 /*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 16:57:40 by aawad             #+#    #+#             */
-/*   Updated: 2025/12/30 08:54:42 by aawad            ###   ########.fr       */
+/*   Updated: 2025/12/30 09:54:13 by aawad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,26 +28,14 @@ void	built_in_pwd(void)
 	g_last_status = 0;
 }
 
-//for anthony to check (separated function and replaced printf with ft_printf)
-void	echo_helper(t_cmd *cmd, int i)
-{
-	ft_printf("%s", cmd->args[i]);
-	if (cmd->args[i + 1])
-		ft_printf(" ");
-}
-
-void	built_in_echo(t_cmd *cmd)
+static int	should_skip_newline(t_cmd *cmd, int *start_index)
 {
 	int	i;
 	int	j;
-	int	newline;
 
 	i = 1;
-	newline = 1;
-	while (cmd->args[i])
+	while (cmd->args[i] && cmd->args[i][0] == '-')
 	{
-		if (cmd->args[i][0] != '-')
-			break ;
 		j = 1;
 		if (cmd->args[i][j] != 'n')
 			break ;
@@ -55,9 +43,18 @@ void	built_in_echo(t_cmd *cmd)
 			j++;
 		if (cmd->args[i][j] != '\0')
 			break ;
-		newline = 0;
 		i++;
 	}
+	*start_index = i;
+	return (i > 1);
+}
+
+void	built_in_echo(t_cmd *cmd)
+{
+	int	i;
+	int	newline;
+
+	newline = !should_skip_newline(cmd, &i);
 	while (cmd->args[i])
 	{
 		ft_printf("%s", cmd->args[i]);
