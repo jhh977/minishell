@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in_command1.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 16:57:40 by aawad             #+#    #+#             */
-/*   Updated: 2025/12/26 15:34:30 by jhh              ###   ########.fr       */
+/*   Updated: 2025/12/30 08:54:42 by aawad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,22 +42,27 @@ void	built_in_echo(t_cmd *cmd)
 	int	j;
 	int	newline;
 
-	j = 1;
 	i = 1;
 	newline = 1;
-	if (cmd->args[i] && cmd->args[i][0] == '-')
+	while (cmd->args[i])
 	{
+		if (cmd->args[i][0] != '-')
+			break ;
+		j = 1;
+		if (cmd->args[i][j] != 'n')
+			break ;
 		while (cmd->args[i][j] == 'n')
 			j++;
-		if (cmd->args[i][j] == '\0' && j > 1)
-		{
-			newline = 0;
-			i++;
-		}
+		if (cmd->args[i][j] != '\0')
+			break ;
+		newline = 0;
+		i++;
 	}
 	while (cmd->args[i])
 	{
-		echo_helper(cmd, i);
+		ft_printf("%s", cmd->args[i]);
+		if (cmd->args[i + 1])
+			ft_printf(" ");
 		i++;
 	}
 	if (newline)
