@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in_execution.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 16:57:42 by aawad             #+#    #+#             */
-/*   Updated: 2025/12/29 17:12:33 by jhh              ###   ########.fr       */
+/*   Updated: 2025/12/31 18:53:37 by aawad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	execute_builtin(t_cmd *cmd, char ***envp)
 	else if (ft_strcmp(cmd->args[0], "unset") == 0)
 		built_in_unset(cmd, envp);
 	else if (ft_strcmp(cmd->args[0], "exit") == 0)
-		built_in_exit(cmd);
+		built_in_exit(cmd,envp);
 	else if (ft_strcmp(cmd->args[0], "pwd") == 0)
 		built_in_pwd();
 	else if (ft_strcmp(cmd->args[0], "echo") == 0)

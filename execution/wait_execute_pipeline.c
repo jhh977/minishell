@@ -6,7 +6,7 @@
 /*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 14:03:15 by aawad             #+#    #+#             */
-/*   Updated: 2025/12/29 21:46:43 by aawad            ###   ########.fr       */
+/*   Updated: 2025/12/31 18:01:09 by aawad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,21 @@ static void	execute_command_child(t_cmd *cmd, char ***envp, t_pipe_ctx *ctx, pid
 	{
 		if (cmd && handle_redirections(cmd) < 0)
 		{
-			free_child_pipeline(ctx, pids);
+			free_child_pipeline(cmd, envp, ctx, pids);
 			exit(1);
 		}
-		free_child_pipeline(ctx, pids);
+		free_child_pipeline(cmd, envp, ctx, pids);
 		exit(0);
 	}
 	if (handle_redirections(cmd) < 0)
 	{
-		free_child_pipeline(ctx, pids);
+		free_child_pipeline(cmd, envp, ctx, pids);
 		exit(1);
 	}
 	if (built_in(cmd->args[0]))
 	{
 		execute_builtin(cmd, envp);
-		free_child_pipeline(ctx, pids);
+		free_child_pipeline(cmd, envp, ctx, pids);
 		exit(g_last_status);
 	}
 	path = find_path(cmd->args[0], *envp);
@@ -45,11 +45,11 @@ static void	execute_command_child(t_cmd *cmd, char ***envp, t_pipe_ctx *ctx, pid
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		ft_putstr_fd(cmd->args[0], STDERR_FILENO);
 		ft_putstr_fd(": command not found\n", STDERR_FILENO);
-		free_child_pipeline(ctx, pids);
+		free_child_pipeline(cmd, envp, ctx, pids);
 		exit(127);
 	}
-	free_child_pipeline(ctx, pids);
 	execve(path, cmd->args, *envp);
+	free_child_pipeline(cmd, envp, ctx, pids);
 	perror("execve");
 	free(path);
 	exit(126);

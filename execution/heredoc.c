@@ -6,7 +6,7 @@
 /*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 20:34:17 by aawad             #+#    #+#             */
-/*   Updated: 2025/12/26 20:39:54 by aawad            ###   ########.fr       */
+/*   Updated: 2025/12/31 18:32:59 by aawad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,25 @@ static char	*create_heredoc_filename(void)
 	char		*count_str;
 	char		*filename;
 	char		*tmp;
+	char		*tmpdir;
 
+	tmpdir = getenv("TMPDIR");
+	if (!tmpdir)
+		tmpdir = "/tmp";
 	count_str = ft_itoa(heredoc_count++);
 	if (!count_str)
 		return (NULL);
-	tmp = ft_strjoin("/tmp/.minishell_heredoc_", count_str);
-	free(count_str);
+	tmp = ft_strjoin(tmpdir, "/.minishell_heredoc_");
 	if (!tmp)
+	{
+		free(count_str);
 		return (NULL);
-	filename = ft_strjoin(tmp, ".txt");
+	}
+	filename = ft_strjoin(tmp, count_str);
 	free(tmp);
+	free(count_str);
 	return (filename);
 }
-
 static int	read_heredoc_lines(int fd, char *delimiter)
 {
 	char	*line;
@@ -64,7 +70,7 @@ static int	open_heredoc_file(char *filename)
 {
 	int	fd;
 
-	fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0600);
+	fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd < 0)
 	{
 		perror("heredoc");
