@@ -6,7 +6,7 @@
 /*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 11:54:30 by jhh               #+#    #+#             */
-/*   Updated: 2025/12/29 15:47:33 by jhh              ###   ########.fr       */
+/*   Updated: 2026/01/01 16:02:32 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ void	free_cmd_list(t_cmd *cmd_list)
 	t_cmd	*next;
 
 	current = cmd_list;
+	while (current->prev)
+		current = current->prev;
 	while (current)
 	{
 		next = current->next;
