@@ -34,6 +34,7 @@ EXEC_SRCS = execution/built_in_command1.c \
             execution/pipline_command.c \
             execution/pipline_execute.c \
             execution/remove_add_env.c \
+            execution/execute_command_child.c \
             execution/wait_execute_pipeline.c \
             execution/free_child_processes.c
 

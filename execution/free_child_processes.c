@@ -6,20 +6,20 @@
 /*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 17:14:24 by jhh               #+#    #+#             */
-/*   Updated: 2025/12/31 17:22:48 by aawad            ###   ########.fr       */
+/*   Updated: 2026/01/01 18:29:25 by aawad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
- void free_exit(t_cmd *cmd , char ***envp)
- {
+void	free_exit(t_cmd *cmd, char ***envp)
+{
 	free_cmd_list(cmd);
 	free_envp(*envp);
- }
- 
- void	free_child_pipeline(t_cmd *cmd, char ***envp, t_pipe_ctx *ctx, pid_t *pids)
+}
+
+void	free_child_pipeline(t_cmd *cmd, char ***envp,
+	t_pipe_ctx *ctx, pid_t *pids)
 {
 	free_exit(cmd, envp);
 	if (ctx && ctx->pipes)

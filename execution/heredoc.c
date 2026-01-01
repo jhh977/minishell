@@ -6,7 +6,7 @@
 /*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 20:34:17 by aawad             #+#    #+#             */
-/*   Updated: 2025/12/31 18:32:59 by aawad            ###   ########.fr       */
+/*   Updated: 2026/01/01 18:00:12 by aawad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static char	*create_heredoc_filename(void)
 	free(count_str);
 	return (filename);
 }
+
 static int	read_heredoc_lines(int fd, char *delimiter)
 {
 	char	*line;

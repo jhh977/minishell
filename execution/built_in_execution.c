@@ -6,7 +6,7 @@
 /*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 16:57:42 by aawad             #+#    #+#             */
-/*   Updated: 2025/12/31 18:53:37 by aawad            ###   ########.fr       */
+/*   Updated: 2026/01/01 17:57:06 by aawad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	execute_builtin(t_cmd *cmd, char ***envp)
 	else if (ft_strcmp(cmd->args[0], "unset") == 0)
 		built_in_unset(cmd, envp);
 	else if (ft_strcmp(cmd->args[0], "exit") == 0)
-		built_in_exit(cmd,envp);
+		built_in_exit(cmd, envp);
 	else if (ft_strcmp(cmd->args[0], "pwd") == 0)
 		built_in_pwd();
 	else if (ft_strcmp(cmd->args[0], "echo") == 0)

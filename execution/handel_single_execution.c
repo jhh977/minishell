@@ -6,7 +6,7 @@
 /*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 14:18:23 by aawad             #+#    #+#             */
-/*   Updated: 2025/12/31 19:02:18 by aawad            ###   ########.fr       */
+/*   Updated: 2026/01/01 18:12:01 by aawad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,24 @@ char	*get_env_value(const char *name, char **envp)
 	return (NULL);
 }
 
+static void	handle_command_not_found(t_cmd *cmd, char ***envp)
+{
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd(cmd->args[0], STDERR_FILENO);
+	ft_putstr_fd(": command not found\n", STDERR_FILENO);
+	free_exit(cmd, envp);
+	exit(127);
+}
+
+static void	execute_command(t_cmd *cmd, char ***envp, char *path)
+{
+	execve(path, cmd->args, *envp);
+	free_exit(cmd, envp);
+	perror("execve");
+	free(path);
+	exit(126);
+}
+
 void	exec_child_process(t_cmd *cmd, char ***envp)
 {
 	char	*path;
@@ -44,17 +62,6 @@ void	exec_child_process(t_cmd *cmd, char ***envp)
 	}
 	path = find_path(cmd->args[0], *envp);
 	if (!path)
-	{
-		ft_putstr_fd("minishell: ", STDERR_FILENO);
-		ft_putstr_fd(cmd->args[0], STDERR_FILENO);
-		ft_putstr_fd(": command not found\n", STDERR_FILENO);
-	free_exit(cmd, envp);
-		exit(127);
-	}
-	execve(path, cmd->args, *envp);
-	free_exit(cmd, envp);
-
-	perror("execve");
-	free(path);
-	exit(126);
+		handle_command_not_found(cmd, envp);
+	execute_command(cmd, envp, path);
 }

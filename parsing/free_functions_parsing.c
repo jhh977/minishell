@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_functions_parsing.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 11:54:30 by jhh               #+#    #+#             */
-/*   Updated: 2026/01/01 16:02:32 by jhh              ###   ########.fr       */
+/*   Updated: 2026/01/01 17:51:35 by aawad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ void	free_cmd_list(t_cmd *cmd_list)
 	t_cmd	*current;
 	t_cmd	*next;
 
+	if (!cmd_list)
+		return ;
 	current = cmd_list;
 	while (current->prev)
 		current = current->prev;
