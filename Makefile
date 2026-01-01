@@ -39,7 +39,7 @@ EXEC_SRCS = execution/built_in_command1.c \
             execution/free_child_processes.c
 
 # Main
-MAIN_SRC = main.c
+MAIN_SRC = copy_envp.c main.c
 
 SRCS    = $(MAIN_SRC) $(PARSE_SRCS) $(EXEC_SRCS)
 OBJS    = $(SRCS:.c=.o)

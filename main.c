@@ -6,55 +6,13 @@
 /*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 13:57:06 by jhh               #+#    #+#             */
-/*   Updated: 2025/12/31 18:30:18 by aawad            ###   ########.fr       */
+/*   Updated: 2026/01/01 18:49:17 by aawad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int	g_last_status = 0;
-
-static char	**copy_envp(char **envp)
-{
-	int		i;
-	int		count;
-	char	**new_envp;
-
-	count = 0;
-	while (envp[count])
-		count++;
-	new_envp = malloc(sizeof(char *) * (count + 1));
-	if (!new_envp)
-		return (NULL);
-	i = 0;
-	while (i < count)
-	{
-		new_envp[i] = ft_strdup(envp[i]);
-		if (!new_envp[i])
-		{
-			while (--i >= 0)
-				free(new_envp[i]);
-			free(new_envp);
-			return (NULL);
-		}
-		i++;
-	}
-	new_envp[count] = NULL;
-	return (new_envp);
-}
-
-void	free_envp(char **envp)
-{
-	int	i;
-
-	i = 0;
-	while (envp[i])
-	{
-		free(envp[i]);
-		i++;
-	}
-	free(envp);
-}
 
 static void	process_input(char *input, char ***envp)
 {
@@ -80,19 +38,10 @@ static void	process_input(char *input, char ***envp)
 	free_cmd_list(cmd_list);
 }
 
-int	main(int argc, char **argv, char **envp)
+static void	run_shell(char **my_envp)
 {
 	char	*input;
-	char	**my_envp;
 
-	(void)argc;
-	(void)argv;
-	my_envp = copy_envp(envp);
-	if (!my_envp)
-	{
-		ft_putstr_fd("minishell: failed to initialize environment\n", 2);
-		return (1);
-	}
 	setup_interactive_signals();
 	while (1)
 	{
@@ -107,6 +56,21 @@ int	main(int argc, char **argv, char **envp)
 		setup_interactive_signals();
 		free(input);
 	}
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	char	**my_envp;
+
+	(void)argc;
+	(void)argv;
+	my_envp = copy_envp(envp);
+	if (!my_envp)
+	{
+		ft_putstr_fd("minishell: failed to initialize environment\n", 2);
+		return (1);
+	}
+	run_shell(my_envp);
 	free_envp(my_envp);
 	rl_clear_history();
 	return (g_last_status);

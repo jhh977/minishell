@@ -6,7 +6,7 @@
 /*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 16:21:00 by jhijazi           #+#    #+#             */
-/*   Updated: 2026/01/01 18:20:04 by aawad            ###   ########.fr       */
+/*   Updated: 2026/01/01 19:04:38 by aawad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef enum e_token_type
 	REDIR_OUT,
 	REDIR_APPEND,
 	REDIR_HEREDOC,
-	END_OF_INPUT,
+	END_OF_INPUT
 }	t_token_type;
 
 typedef struct s_token
@@ -96,11 +96,17 @@ char	*find_path(char *cmd, char **envp);
 char	*get_env_value(const char *name, char **envp);
 void	free_split(char **split);
 void	exec_child_process(t_cmd *cmd, char ***envp);
-void	free_child_pipeline(t_cmd *cmd, char ***envp,
-	t_pipe_ctx *ctx, pid_t *pids);
+void	free_child_pipeline(
+			t_cmd *cmd,
+			char ***envp,
+			t_pipe_ctx *ctx,
+			pid_t *pids);
 void	free_exit(t_cmd *cmd, char ***envp);
-void	execute_command_child(t_cmd *cmd, char ***envp,
-	t_pipe_ctx *ctx, pid_t *pids);
+void	execute_command_child(
+			t_cmd *cmd,
+			char ***envp,
+			t_pipe_ctx *ctx,
+			pid_t *pids);
 
 // Pipeline
 int		count_commands(t_cmd *cmd_list);
@@ -173,4 +179,7 @@ void	ignore_signals(void);
 void	sigint_handler(int sig);
 void	sigint_heredoc_handler(int sig);
 
+//copy_envp
+char	**copy_envp(char **envp);
+int		envp_count(char **envp);
 #endif
