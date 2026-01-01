@@ -6,7 +6,7 @@
 /*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 14:13:27 by jhijazi           #+#    #+#             */
-/*   Updated: 2026/01/01 16:25:02 by jhh              ###   ########.fr       */
+/*   Updated: 2026/01/01 20:26:07 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,7 @@ t_token	*tokenization(char *input, char ***envp)
 	}
 	else if (t.end == t.start && (t.word && ft_strlen(t.word) > 0))
 		add_token(&t, new_token(&t));
+	else if (t.word)
+		free(t.word);
 	return (t.head);
 }
