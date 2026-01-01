@@ -6,7 +6,7 @@
 /*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 11:15:57 by aawad             #+#    #+#             */
-/*   Updated: 2025/12/26 22:20:26 by aawad            ###   ########.fr       */
+/*   Updated: 2026/01/01 23:06:47 by aawad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	wait_for_children(pid_t *pids, int num_cmds)
 			}
 		}
 		last_status = handle_child_status(status);
+		if (WTERMSIG(status) == SIGINT && i == num_cmds - 1)
+			write(1, "\n", 1);
 		i++;
 	}
 	return (last_status);
