@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in_command2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 13:16:40 by aawad             #+#    #+#             */
-/*   Updated: 2025/12/31 18:52:24 by aawad            ###   ########.fr       */
+/*   Updated: 2026/01/02 16:34:33 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ static int	is_numeric(char *str)
 	return (1);
 }
 
-void	built_in_exit(t_cmd *cmd, char ***envp)
+void	built_in_exit(t_cmd *cmd, char ***envp,
+	t_pipe_ctx *ctx, pid_t *pids)
 {
 	int	exit_code;
 
@@ -52,8 +53,7 @@ void	built_in_exit(t_cmd *cmd, char ***envp)
 	}
 	else
 		exit_code = ft_atoi(cmd->args[1]) % 256;
-	free_cmd_list(cmd);
-	free_envp(*envp);
+	free_child_pipeline(cmd, envp, ctx, pids);
 	exit(exit_code);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_command_child.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/01 18:15:19 by aawad             #+#    #+#             */
-/*   Updated: 2026/01/01 18:16:05 by aawad            ###   ########.fr       */
+/*   Updated: 2026/01/02 16:09:11 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	handle_empty_cmd(t_cmd *cmd, char ***envp,
 static void	handle_builtin_pipeline(t_cmd *cmd, char ***envp,
 	t_pipe_ctx *ctx, pid_t *pids)
 {
-	execute_builtin(cmd, envp);
+	execute_builtin(cmd, envp, ctx, pids);
 	free_child_pipeline(cmd, envp, ctx, pids);
 	exit(g_last_status);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in_execution.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 16:57:42 by aawad             #+#    #+#             */
-/*   Updated: 2026/01/01 17:57:06 by aawad            ###   ########.fr       */
+/*   Updated: 2026/01/02 16:10:42 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int	built_in(char *cmd)
 		|| !ft_strcmp(cmd, "unset"));
 }
 
-void	execute_builtin(t_cmd *cmd, char ***envp)
+void	execute_builtin(t_cmd *cmd, char ***envp,
+	t_pipe_ctx *ctx, pid_t *pids)
 {
 	if (!cmd || !cmd->args || !cmd->args[0])
 		return ;
@@ -36,7 +37,7 @@ void	execute_builtin(t_cmd *cmd, char ***envp)
 	else if (ft_strcmp(cmd->args[0], "unset") == 0)
 		built_in_unset(cmd, envp);
 	else if (ft_strcmp(cmd->args[0], "exit") == 0)
-		built_in_exit(cmd, envp);
+		built_in_exit(cmd, envp, ctx, pids);
 	else if (ft_strcmp(cmd->args[0], "pwd") == 0)
 		built_in_pwd();
 	else if (ft_strcmp(cmd->args[0], "echo") == 0)

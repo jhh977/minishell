@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_single_cmd.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 20:33:29 by aawad             #+#    #+#             */
-/*   Updated: 2026/01/01 18:10:52 by aawad            ###   ########.fr       */
+/*   Updated: 2026/01/02 16:14:19 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	handle_builtin_cmd(t_cmd *cmd, char ***envp)
 
 	if (ft_strcmp(cmd->args[0], "exit") == 0)
 	{
-		execute_builtin(cmd, envp);
+		execute_builtin(cmd, envp, NULL, NULL);
 		return ;
 	}
 	saved = save_std_fds();
@@ -62,7 +62,7 @@ static void	handle_builtin_cmd(t_cmd *cmd, char ***envp)
 		return ;
 	}
 	if (handle_redirections(cmd) == 0)
-		execute_builtin(cmd, envp);
+		execute_builtin(cmd, envp, NULL, NULL);
 	else
 		g_last_status = 1;
 	restore_std_fds(saved);

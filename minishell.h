@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 16:21:00 by jhijazi           #+#    #+#             */
-/*   Updated: 2026/01/01 19:04:38 by aawad            ###   ########.fr       */
+/*   Updated: 2026/01/02 16:40:03 by jhh              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,12 +118,14 @@ int		wait_for_children(pid_t *pids, int num_cmds);
 
 // Built-ins
 int		built_in(char *cmd);
-void	execute_builtin(t_cmd *cmd, char ***envp);
+void	execute_builtin(t_cmd *cmd, char ***envp,
+			t_pipe_ctx *ctx, pid_t *pids);
 void	built_in_pwd(void);
 void	built_in_echo(t_cmd *cmd);
 void	built_in_cd(t_cmd *cmd, char **envp);
 void	built_in_env(char **envp);
-void	built_in_exit(t_cmd *cmd, char ***envp);
+void	built_in_exit(t_cmd *cmd, char ***envp,
+			t_pipe_ctx *ctx, pid_t *pids);
 void	built_in_export(t_cmd *cmd, char ***envp);
 void	built_in_unset(t_cmd *cmd, char ***envp);
 
