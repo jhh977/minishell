@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 16:21:00 by jhijazi           #+#    #+#             */
-/*   Updated: 2026/01/02 16:40:03 by jhh              ###   ########.fr       */
+/*   Updated: 2026/01/03 13:27:53 by aawad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "libft/libft.h"
+# include <sys/stat.h>
 
 extern int	g_last_status;
 
@@ -115,6 +116,14 @@ void	close_all_pipes(int **pipes, int num_pipes);
 void	free_pipes(int **pipes, int num_pipes);
 void	setup_pipe_fds(int cmd_index, int num_cmds, int **pipes);
 int		wait_for_children(pid_t *pids, int num_cmds);
+
+// find_path.c
+int		is_directory(const char *path);
+char	*join_path(char *dir, char *cmd);
+char	*check_direct_path(char *cmd);
+char	**get_paths(char **envp);
+char	*find_path(char *cmd, char **envp);
+char	*search_in_paths(char **paths, char *cmd);
 
 // Built-ins
 int		built_in(char *cmd);

@@ -6,11 +6,20 @@
 /*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 15:53:41 by jhh               #+#    #+#             */
-/*   Updated: 2025/12/30 10:15:43 by aawad            ###   ########.fr       */
+/*   Updated: 2026/01/03 13:26:10 by aawad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	is_directory(const char *path)
+{
+	struct stat	path_stat;
+
+	if (stat(path, &path_stat) != 0)
+		return (0);
+	return (S_ISDIR(path_stat.st_mode));
+}
 
 char	*join_path(char *dir, char *cmd)
 {
@@ -31,12 +40,16 @@ char	*join_path(char *dir, char *cmd)
 	return (full);
 }
 
-static char	*check_direct_path(char *cmd)
+char	*check_direct_path(char *cmd)
 {
 	if (!cmd || cmd[0] == '\0')
 		return (NULL);
 	if (ft_strchr(cmd, '/'))
 	{
+		if (access(cmd, F_OK) != 0)
+			return (NULL);
+		if (is_directory(cmd))
+			return (NULL);
 		if (access(cmd, X_OK) == 0)
 			return (ft_strdup(cmd));
 		return (NULL);
@@ -44,7 +57,7 @@ static char	*check_direct_path(char *cmd)
 	return (NULL);
 }
 
-static char	**get_paths(char **envp)
+char	**get_paths(char **envp)
 {
 	int	i;
 
@@ -54,28 +67,6 @@ static char	**get_paths(char **envp)
 	if (!envp[i])
 		return (NULL);
 	return (ft_split(envp[i] + 5, ':'));
-}
-
-static char	*search_in_paths(char **paths, char *cmd)
-{
-	char	*full;
-	int		j;
-
-	j = 0;
-	while (paths[j])
-	{
-		full = join_path(paths[j], cmd);
-		if (!full)
-		{
-			free_split(paths);
-			return (NULL);
-		}
-		if (access(full, X_OK) == 0)
-			return (free_split(paths), full);
-		free(full);
-		j++;
-	}
-	return (NULL);
 }
 
 char	*find_path(char *cmd, char **envp)
