@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in_command3.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 12:50:30 by aawad             #+#    #+#             */
-/*   Updated: 2025/12/26 15:18:47 by jhh              ###   ########.fr       */
+/*   Updated: 2026/01/03 17:51:27 by aawad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	print_export(char **envp)
 	i = 0;
 	while (envp[i])
 	{
-		printf("declare -x %s\n", envp[i]);
+		ft_printf("declare -x %s\n", envp[i]);
 		i++;
 	}
 }

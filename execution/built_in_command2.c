@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in_command2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhh <jhh@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 13:16:40 by aawad             #+#    #+#             */
-/*   Updated: 2026/01/02 16:34:33 by jhh              ###   ########.fr       */
+/*   Updated: 2026/01/03 17:52:16 by aawad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	built_in_exit(t_cmd *cmd, char ***envp,
 {
 	int	exit_code;
 
-	printf("exit\n");
+	ft_printf("exit\n");
 	if (cmd->args[1] == NULL)
 		exit_code = g_last_status;
 	else if (cmd->args[2] != NULL)
