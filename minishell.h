@@ -6,7 +6,7 @@
 /*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 16:21:00 by jhijazi           #+#    #+#             */
-/*   Updated: 2026/01/03 13:27:53 by aawad            ###   ########.fr       */
+/*   Updated: 2026/01/03 23:49:08 by aawad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	execute_command_child(
 			char ***envp,
 			t_pipe_ctx *ctx,
 			pid_t *pids);
-
+char	**add_env_without_value(char **envp, char *key);
 // Pipeline
 int		count_commands(t_cmd *cmd_list);
 int		**create_pipes(int num_cmds);

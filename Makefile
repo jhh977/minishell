@@ -23,6 +23,7 @@ PARSE_SRCS =parsing/tokenization.c \
 EXEC_SRCS = execution/built_in_command1.c \
             execution/built_in_command2.c \
             execution/built_in_command3.c \
+            execution/built_in_command4.c \
             execution/built_in_execution.c \
             execution/built_in_redirection.c \
             execution/find_path.c \

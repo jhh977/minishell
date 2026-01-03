@@ -6,7 +6,7 @@
 /*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 14:13:19 by aawad             #+#    #+#             */
-/*   Updated: 2025/12/26 20:59:38 by aawad            ###   ########.fr       */
+/*   Updated: 2026/01/04 00:12:02 by aawad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,35 @@ char	**add_or_update_env(char **envp, char *key, char *value)
 	while (envp[++count])
 		new_env[count] = envp[count];
 	new_env[count] = build_env_var(key, value);
+	new_env[count + 1] = NULL;
+	free(envp);
+	return (new_env);
+}
+
+char	**add_env_without_value(char **envp, char *key)
+{
+	int		count;
+	char	**new_env;
+	int		i;
+
+	count = 0;
+	while (envp[count])
+		count++;
+	new_env = malloc(sizeof(char *) * (count + 2));
+	if (!new_env)
+		return (envp);
+	i = 0;
+	while (i < count)
+	{
+		new_env[i] = envp[i];
+		i++;
+	}
+	new_env[count] = ft_strdup(key);
+	if (!new_env[count])
+	{
+		free(new_env);
+		return (envp);
+	}
 	new_env[count + 1] = NULL;
 	free(envp);
 	return (new_env);

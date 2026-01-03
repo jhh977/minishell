@@ -6,7 +6,7 @@
 /*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 13:57:06 by jhh               #+#    #+#             */
-/*   Updated: 2026/01/01 18:49:17 by aawad            ###   ########.fr       */
+/*   Updated: 2026/01/04 00:09:43 by aawad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	process_input(char *input, char ***envp)
 	free_cmd_list(cmd_list);
 }
 
-static void	run_shell(char **my_envp)
+static void	run_shell(char ***my_envp)
 {
 	char	*input;
 
@@ -52,7 +52,7 @@ static void	run_shell(char **my_envp)
 			break ;
 		}
 		if (*input)
-			process_input(input, &my_envp);
+			process_input(input, my_envp);
 		setup_interactive_signals();
 		free(input);
 	}
@@ -70,7 +70,7 @@ int	main(int argc, char **argv, char **envp)
 		ft_putstr_fd("minishell: failed to initialize environment\n", 2);
 		return (1);
 	}
-	run_shell(my_envp);
+	run_shell(&my_envp);
 	free_envp(my_envp);
 	rl_clear_history();
 	return (g_last_status);
