@@ -6,7 +6,7 @@
 /*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 16:57:40 by aawad             #+#    #+#             */
-/*   Updated: 2025/12/30 09:54:13 by aawad            ###   ########.fr       */
+/*   Updated: 2026/01/04 13:19:04 by aawad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,35 +65,6 @@ void	built_in_echo(t_cmd *cmd)
 	if (newline)
 		ft_printf("\n");
 	g_last_status = 0;
-}
-
-void	built_in_cd(t_cmd *cmd, char **envp)
-{
-	char	*path;
-	char	*home;
-
-	if (cmd->args[1])
-		path = cmd->args[1];
-	else
-	{
-		home = get_env_value("HOME", envp);
-		if (!home)
-		{
-			ft_putstr_fd("minishell: cd: HOME not set\n", STDERR_FILENO);
-			g_last_status = 1;
-			return ;
-		}
-		path = home;
-	}
-	if (chdir(path) != 0)
-	{
-		perror("minishell: cd");
-		g_last_status = 1;
-	}
-	else
-		g_last_status = 0;
-	if (!cmd->args[1])
-		free(path);
 }
 
 void	built_in_env(char **envp)

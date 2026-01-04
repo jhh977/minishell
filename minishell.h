@@ -6,7 +6,7 @@
 /*   By: aawad <aawad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 16:21:00 by jhijazi           #+#    #+#             */
-/*   Updated: 2026/01/03 23:49:08 by aawad            ###   ########.fr       */
+/*   Updated: 2026/01/04 13:19:53 by aawad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ void	built_in_exit(t_cmd *cmd, char ***envp,
 			t_pipe_ctx *ctx, pid_t *pids);
 void	built_in_export(t_cmd *cmd, char ***envp);
 void	built_in_unset(t_cmd *cmd, char ***envp);
-
+char	*get_cd_path(t_cmd *cmd, char **envp);
 // Environment
 char	**add_or_update_env(char **envp, char *key, char *value);
 char	**remove_env(char **envp, char *key);
