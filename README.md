@@ -415,8 +415,8 @@ minishell/
 
 ## 👥 Authors
 
-- **aawad** - [GitHub Profile](https://github.com/aawad)
-- **jhijazi** - [GitHub Profile](https://github.com/jhh)
+- **aawad** - [GitHub Profile](https://github.com/awadanthony33-collab)
+- **jhijazi** - [GitHub Profile](https://github.com/jhh977)
 
 *42 School - Minishell Project*
 
