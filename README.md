@@ -436,7 +436,7 @@ make DEBUG=1
 # Run with valgrind
 valgrind --leak-check=full -q ./minishell
 
-#Run with valgrind and supp.supp fill to check witout readline leaks
+#Run with valgrind and supp.supp file to check witout readline leaks
 valgrind --leak-check=full --show-leak-kinds=all --suppressions=supp.supp -q  ./minishell
 
 # Run with gdb
