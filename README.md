@@ -339,21 +339,6 @@ minishell$ export VAR=test
 minishell$ exit
 ```
 
-## ⚠️ Known Issues
-
-### Current Bugs
-1. **Segmentation fault**: When doing `export a` followed by `Ctrl-D` (being investigated)
-   - Workaround: Use `exit` command instead of `Ctrl-D`
-
-### Not Implemented
-- ❌ Logical operators (`&&`, `||`)
-- ❌ Wildcards (`*`, `?`)
-- ❌ Backslash escaping (`\`)
-- ❌ Background processes (`&`)
-- ❌ Command substitution (`` `...` `` or `$(...)`)
-- ❌ Special variables (`$$`, `$!`, `$_`)
-- ❌ Subshells (`(...)`)
-- ❌ Brace expansion (`{a,b,c}`)
 
 ### Limitations
 - Only simple quotes and double quotes are handled
@@ -390,7 +375,7 @@ minishell/
 ├── execute_command_child.c       # Child process execution
 ├── execute_single_cmd.c          # Single command execution
 ├── handel_single_execution.c     # Single command helper
-│── Built-in Commands:
+|── built_in_cd_helper.c          #helper for cd command
 ├── built_in_command1.c           # pwd, echo, cd, env
 ├── built_in_command2.c           # exit, unset
 ├── built_in_command3.c           # export
