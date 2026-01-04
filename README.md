@@ -70,20 +70,10 @@ Minishell is a project from the 42 school curriculum that challenges students to
 
 ## 🚀 Installation
 
-### Prerequisites
-```bash
-# Ubuntu/Debian
-sudo apt-get update
-sudo apt-get install build-essential libreadline-dev
-
-# macOS
-brew install readline
-```
-
 ### Compilation
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/minishell.git
+git clone git@vogsphere.42beirut.com:vogsphere/intra-uuid-35c7963e-809f-46c8-961f-a74aee853d23-7014643-jhijazi
 cd minishell
 
 # Compile
@@ -426,7 +416,7 @@ minishell/
 ## 👥 Authors
 
 - **aawad** - [GitHub Profile](https://github.com/aawad)
-- **jihazi** - [GitHub Profile](https://github.com/jhh)
+- **jhijazi** - [GitHub Profile](https://github.com/jhh)
 
 *42 School - Minishell Project*
 
@@ -444,16 +434,14 @@ minishell/
 make DEBUG=1
 
 # Run with valgrind
-valgrind --leak-check=full ./minishell
+valgrind --leak-check=full -q ./minishell
+
+#Run with valgrind and supp.supp fill to check witout readline leaks
+valgrind --leak-check=full --show-leak-kinds=all --suppressions=supp.supp -q  ./minishell
 
 # Run with gdb
-gdb ./minishell
+gdb -tui ./minishell
 ```
-
-### Resources
-- [Bash Reference Manual](https://www.gnu.org/software/bash/manual/)
-- [GNU Readline Library](https://tiswww.case.edu/php/chet/readline/rltop.html)
-- [POSIX Shell Command Language](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html)
 
 ---
 
